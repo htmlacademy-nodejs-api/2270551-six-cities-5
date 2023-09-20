@@ -9,10 +9,12 @@ export class TSVFileReader implements FileReader {
      private readonly filename: string
   ) {}
 
+  //читаем данные сейчас из моков
   public read(): void {
     this.rawData = readFileSync(this.filename, { encoding: 'utf-8' });
   }
 
+  // проверяем прочитаны ли данные из файла и разбираем полученную строку
   public toArray(): Offer[] {
     if (!this.rawData) {
       throw new Error('File was not read');
