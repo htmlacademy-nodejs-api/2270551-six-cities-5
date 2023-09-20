@@ -1,8 +1,8 @@
-import { Coords } from './coords.type.js';
+//import { Coords } from './coords.type.js';
 
-export type CityName = 'paris' | 'cologne' | 'brussels' | 'amsterdam' | 'hamburg' | 'dusseldorf';
+export type City = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
 
-export type City = {
-  name: CityName,
-  coords: Coords
-}
+//export type City = {
+//  name: CityName,
+//  coords: Coords
+//}
