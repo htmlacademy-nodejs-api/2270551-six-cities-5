@@ -3,6 +3,7 @@ import { City } from '../types/city.type.js';
 import { HouseType } from '../types/house-type.enum.js';
 import { Feature } from '../types/feature.enum.js';
 
+// проверяем прочитаны ли данные из файла и разбираем полученную строку
 export function createOffer(offerData: string): Offer {
   const [
     title,
