@@ -1,9 +1,10 @@
+import EventEmitter from 'node:events';
 import { FileReader } from './file-reader.interface.js';
 import { readFileSync } from 'node:fs';
-import { Offer } from '../../types/index.js';
-import { Feature } from '../../types/feature.enum.js';
-import { HouseType } from '../../types/house-type.enum.js';
-import { City } from '../../types/city.type.js';
+//import { Offer } from '../../types/index.js';
+//import { Feature } from '../../types/feature.enum.js';
+//import { HouseType } from '../../types/house-type.enum.js';
+//import { City } from '../../types/city.type.js';
 
 
 export class TSVFileReader implements FileReader {
@@ -19,7 +20,7 @@ export class TSVFileReader implements FileReader {
   }
 
   // проверяем прочитаны ли данные из файла и разбираем полученную строку
-  public toArray(): Offer[] {
+  /* public toArray(): Offer[] {
     if (!this.rawData) {
       return [];
     }
@@ -50,5 +51,5 @@ export class TSVFileReader implements FileReader {
           latitude: Number.parseFloat(coords.split(';')[1])
         }
       }));
-  }
+  }*/
 }
