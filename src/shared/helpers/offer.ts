@@ -42,8 +42,8 @@ export function createOffer(offerData: string): Offer {
     features: (features.split(';') as Feature[]),
     coments: Number.parseInt(coments, 10),
     coords: {
-      lng: Number.parseFloat(coords.split(';')[0]),
-      lat: Number.parseFloat(coords.split(';')[1])
+      longitude: Number.parseFloat(coords.split(';')[0]),
+      latitude: Number.parseFloat(coords.split(';')[1])
     }
   } as Offer;
 }
