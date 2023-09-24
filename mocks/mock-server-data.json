@@ -1,0 +1,90 @@
+{
+  "api": {
+    "titles": [
+      "Beautiful & luxurious apartment at great location",
+      "Wood and stone place",
+      "Canal View Prinsengracht",
+      "Nice, cozy, warm big bed apartment",
+      "Wood and stone place",
+      "Beautiful apartment",
+      "Luxurious apartment",
+      "Stone place",
+      "Wood place",
+      "City View Prinsengracht",
+      "River Prinsengracht",
+      "Nice apartment",
+      "Big bed apartment",
+      "Cozy apartment"
+    ],
+    "descriptions": [
+      "Vesna Hotel is located 2.5 km from Globus Shopping Center. It offers rooms with a restaurant, free private parking, a fitness center and a bar.",
+      "Sochi Park Inn is located 6.1 km from the Central Square. It offers rooms with a swimming pool, free parking, a shared lounge and a terrace.",
+      "The modern and stylish Radisson Business Bay Hotel is located in a residential area, 1.6 km from the Russian World Shopping Center and the Federation Skyscraper.",
+      "The Russian Seasons Hotel offers the most luxurious rooms in the world, there is a presidential suite with incredible service.",
+      "Апарт-отель расположен в исторической части города, в 150 метрах от всемирно известных архитектурных памятников. Допускается размещение с домашними животными. На всей территории отеля предоставляется бесплатный Wi-Fi.",
+      "The Piter Aurora Plaza Hotel is ideally located in the business center of the city. It offers free Wi-Fi throughout, an author's restaurant and free private parking for guests traveling by car.",
+      "Palmira Business Club Hotel is a new generation of services that combines a top–level vacation with the possibility of business development.",
+      "Discover the unique five-star Salute Inn hotel. Appreciate the beauty and spaciousness of our rooms.",
+      "The design hotel, combining history, modernity and inspiration, is dedicated to the work of Van Gogh. And, of course, reproductions of paintings by the great Dutchman fill all the rooms and interiors of the hotel."
+    ],
+    "previews": [
+      "https://via.placeholder.com/260x200?text=1",
+      "https://via.placeholder.com/260x200?text=2",
+      "https://via.placeholder.com/260x200?text=3",
+      "https://via.placeholder.com/260x200?text=4",
+      "https://via.placeholder.com/260x200?text=5",
+      "https://via.placeholder.com/260x200?text=6"
+    ],
+    "photos": [
+      "https://via.placeholder.com/260x200?text=1",
+      "https://via.placeholder.com/260x200?text=2",
+      "https://via.placeholder.com/260x200?text=3",
+      "https://via.placeholder.com/260x200?text=4",
+      "https://via.placeholder.com/260x200?text=5",
+      "https://via.placeholder.com/260x200?text=6"
+    ],
+    "citys": [
+      "Paris",
+      "Cologne",
+      "Brussels",
+      "Amsterdam",
+      "Hamburg",
+      "Dusseldorf"
+    ],
+    "houseTypes": [
+      "apartment",
+      "house",
+      "room",
+      "hotel"
+    ],
+    "features": [
+      "Breakfast",
+      "Air conditioning",
+      "Laptop friendly workspace",
+      "Baby seat",
+      "Washer",
+      "Towels",
+      "Fridge"
+    ],
+    "authors": [
+      "https://user0.ru",
+      "https://user1.ru",
+      "https://user2.ru",
+      "https://user3.ru",
+      "https://user4.ru",
+      "https://user5.ru",
+      "https://user6.ru",
+      "https://user7.ru",
+      "https://user8.ru",
+      "https://user9.ru"
+    ],
+    "coords": [
+      "48.85661;2.351499",
+      "50.938361;6.959974",
+      "38.85661;3.351499",
+      "40.938361;8.959974",
+      "68.85661;12.351499",
+      "55.938361;16.959974"
+    ]
+  }
+}

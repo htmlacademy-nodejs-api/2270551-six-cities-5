@@ -14,6 +14,10 @@ npm install
 
 В `package.json` предопределено несколько сценариев.
 
+  'mock:server': "json-server ./mocks/mock-server-data.json --port 3123"
+  описывает сценарий запуска JSON-server, 
+  запуск npm run fs ./src/main.cli.ts -- --команда ключи куда/откуда http://localhost:3123/api
+
 #### Скомпилировать проект
 
 ```bash
