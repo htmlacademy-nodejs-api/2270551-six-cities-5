@@ -1,10 +1,10 @@
-import { Config } from '../shared/libs/config/config.interface.js';
+import { Config, RestSchema } from '../shared/libs/config/index.js';
 import { LoggerInterface } from '../shared/libs/logger/index.js';
 
 export class RestApplication {
   constructor(
      private readonly logger: LoggerInterface,
-     private readonly config: Config,
+     private readonly config: Config<RestSchema>,
   ) {}
 
   public async init() {
