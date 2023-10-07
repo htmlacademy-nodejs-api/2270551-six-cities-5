@@ -29,6 +29,7 @@ export class PinoLogger implements LoggerInterface {
     });
 
     this.logger = pino({}, multiTransport);
+    this.logger.info('Logger created…');
   }
 
   public debug(message: string, ...args: unknown[]): void {
