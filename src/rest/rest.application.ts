@@ -9,5 +9,6 @@ export class RestApplication {
     this.logger.info('Application initialization');
     this.logger.warn('Application initialization');
     this.logger.error('ehm', new Error('Some error'));
+    this.logger.debug('This is debug');
   }
 }
