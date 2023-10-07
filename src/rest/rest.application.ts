@@ -7,5 +7,7 @@ export class RestApplication {
 
   public async init() {
     this.logger.info('Application initialization');
+    this.logger.warn('Application initialization');
+    this.logger.error('ehm', new Error('Some error'));
   }
 }
