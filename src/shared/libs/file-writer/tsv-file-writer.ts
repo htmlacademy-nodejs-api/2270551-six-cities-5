@@ -4,7 +4,7 @@ import { createWriteStream } from 'node:fs';
 
 const CHUNK_SIZE = 2 ** 16; // 64KB
 
-export class TSVFileWriter implements FileWriter {
+export default class TSVFileWriter implements FileWriter {
   private stream: WriteStream;
 
   constructor(public readonly filename: string) {

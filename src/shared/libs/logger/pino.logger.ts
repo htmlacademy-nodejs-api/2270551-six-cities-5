@@ -5,7 +5,7 @@ import { LoggerInterface } from './logger.interface.js';
 import { getCurrentModuleDirectoryPath } from '../../helpers/index.js';
 
 @injectable()
-export class PinoLogger implements LoggerInterface {
+export default class PinoLogger implements LoggerInterface {
   private readonly logger: PinoInstance;
 
   constructor() {

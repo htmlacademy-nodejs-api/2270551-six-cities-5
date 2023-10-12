@@ -1,12 +1,13 @@
 import got from 'got';
-import { Command } from './command.interface.js';
+import { CliCommandInterface } from './command.interface.js';
 import { MockServerData } from '../../shared/types/index.js';
-import { TSVOfferGenerator } from '../../shared/libs/offer-generator/index.js';
+import TSVOfferGenerator from '../../shared/libs/offer-generator/tsv-offer-generator.js';
 import { getErrorMessage } from '../../shared/helpers/index.js';
-import { TSVFileWriter } from '../../shared/libs/file-writer/index.js';
+import TSVFileWriter from '../../shared/libs/file-writer/tsv-file-writer.js';
 
 
-export class GenerateCommand implements Command {
+export default class GenerateCommand implements CliCommandInterface {
+  public readonly name = '--generate';
   private initialData: MockServerData;
 
   private async load(url: string) {
