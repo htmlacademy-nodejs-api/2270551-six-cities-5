@@ -19,7 +19,7 @@ export class DefaultUserService implements UserService {
     user.setPassword(dto.password, salt);
 
     const result = await this.userModel.create(user);
-    this.logger.info(`New user created: ${user.email}`);
+    this.logger.info(`New user created: ${user.mail}`);
 
     return result;
   }
@@ -30,7 +30,7 @@ export class DefaultUserService implements UserService {
   }
 
   public async findOrCreate(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
-    const existedUser = await this.findByEmail(dto.email);
+    const existedUser = await this.findByEmail(dto.mail);
     if (existedUser) {
       return existedUser;
     }
