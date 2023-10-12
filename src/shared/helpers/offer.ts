@@ -39,6 +39,7 @@ export function createOffer(offerData: string): Offer {
   };
 
   const cityData = CITIES[(city.toLocaleLowerCase() as CityName)];
+  console.log(cityData);
 
   return {
     title,
