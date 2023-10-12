@@ -21,7 +21,7 @@ const MAX_GUESTS = 9999;
 const MIN_COMMENTS_COUNT = 1;
 const MAX_COMMENTS_COUNT = 10;
 
-export class TSVOfferGenerator implements OfferGeneratorInterface {
+export default class TSVOfferGenerator implements OfferGeneratorInterface {
   constructor(private readonly mockData: MockServerData) {}
 
   public generate(): string {

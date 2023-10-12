@@ -1,40 +1,30 @@
-import { Command } from './commands/command.interface.js';
-import { CommandParser } from './command-parser.js';
+import got from 'got';
+import { CliCommandInterface } from './commands/command.interface.js';
+import { MockServerData } from '../shared/types/mock-server-data.type.js';
+import TSVOfferGenerator from '../shared/libs/offer-generator/tsv-offer-generator.js';
+import TSVFileWriter from '../shared/libs/file-writer/tsv-file-writer.js';
 
- type CommandCollection = Record<string, Command>;
+export default class GenerateCommand implements CliCommandInterface {
+  public readonly name = '--generate';
+  private initialData!: MockServerData;
+  public async execute(...parameters:string[]): Promise<void> {
+    const [count, filepath, url] = parameters;
+    const offerCount = Number.parseInt(count, 10);
 
-export class CLIApplication {
-  private commands: CommandCollection = {};
-
-  constructor(
-    private readonly defaultCommand: string = '--help'
-  ) {}
-
-  public registerCommands(commandList: Command[]): void {
-    commandList.forEach((command) => {
-      if (Object.hasOwn(this.commands, command.getName())) {
-        throw new Error(`Command ${command.getName()} is already registered`);
-      }
-      this.commands[command.getName()] = command;
-    });
-  }
-
-  public getCommand (commandName: string): Command {
-    return this.commands[commandName] ?? this.getDefaultCommand();
-  }
-
-  public getDefaultCommand(): Command | never {
-    if (!this.commands[this.defaultCommand]) {
-      throw new Error (`The default command (${this.defaultCommand}) is not registration`);
+    try {
+      this.initialData = await got.get<MockServerData>(url).json();
+    } catch {
+      console.warn(`Can't fetch data from ${url}.`);
+      return;
     }
-    return this.commands[this.defaultCommand];
-  }
 
-  public processCommand(argv: string[]): void {
-    const parsedCommand = CommandParser.parse(argv);
-    const [commandName] = Object.keys(parsedCommand);
-    const command = this.getCommand(commandName);
-    const commandArguments = parsedCommand[commandName] ?? [];
-    command.execute(...commandArguments);
+    const offerGeneratorString = new TSVOfferGenerator(this.initialData);
+    const tsvFileWriter = new TSVFileWriter(filepath);
+
+    for (let i = 0; i < offerCount; i++) {
+      await tsvFileWriter.write(offerGeneratorString.generate());
+    }
+
+    console.log(`File ${filepath} was created!`);
   }
 }
