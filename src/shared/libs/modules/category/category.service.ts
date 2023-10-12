@@ -1,6 +1,6 @@
 import { CategoryService } from './category-service.interface.js';
 import { inject } from 'inversify';
-import { Component } from '../../../types/index.js';
+import { AppComponent } from '../../../types/index.js';
 import { LoggerInterface } from '../../../libs/logger/index.js';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { CategoryEntity } from './category.entity.js';
@@ -8,8 +8,8 @@ import { CreateCategoryDto } from '../dto/create-category.dto.js';
 
 export class DefaultCategoryService implements CategoryService {
   constructor(
-     @inject(Component.Logger) private readonly logger: LoggerInterface,
-     @inject(Component.CategoryModel) private readonly categoryModel: types.ModelType<CategoryEntity>
+     @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
+     @inject(AppComponent.CategoryModel) private readonly categoryModel: types.ModelType<CategoryEntity>
   ) {}
 
   public async create(dto: CreateCategoryDto): Promise<DocumentType<CategoryEntity>> {
