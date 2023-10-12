@@ -1,5 +1,5 @@
 import { defaultClasses, getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
-import { Category } from '../../types/index.js';
+import { Category } from '../../../types/category.type.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface CategoryEntity extends defaultClasses.Base {}
