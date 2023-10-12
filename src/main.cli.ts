@@ -1,18 +1,16 @@
 #!/usr/bin/env node
-import { CLIApplication, GenerateCommand, HelpCommand, ImportCommand, VersionCommand } from './cli/index.js';
+import 'reflect-metadata';
+import CLIApplication from './cli/cli-application.js';
+import HelpCommand from './cli/commands/help.command.js';
+import ImportCommand from './cli/commands/import.command.js';
+import VersionCommand from './cli/commands/version.command.js';
+import GenerateCommand from './cli/commands/generate.command.js';
 
-function bootstrap() {
-  const cliApplication = new CLIApplication();
-  cliApplication.registerCommands([
-    new HelpCommand(),
-    new VersionCommand(),
-    new ImportCommand(),
-    new GenerateCommand(),
-  ]);
-
-  console.log(process.argv);
-  cliApplication.processCommand(process.argv);
-}
-
-bootstrap();
-
+const myManager = new CLIApplication();
+myManager.registerCommands([
+  new HelpCommand,
+  new VersionCommand,
+  new ImportCommand,
+  new GenerateCommand()
+]);
+myManager.processCommand(process.argv);
