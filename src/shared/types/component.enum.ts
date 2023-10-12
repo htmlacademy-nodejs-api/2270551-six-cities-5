@@ -1,10 +1,12 @@
-export const Component = {
+export const AppComponent = {
   RestApplication: Symbol.for('RestApplication'),
-  Logger: Symbol.for('Logger'),
-  Config: Symbol.for('Config'),
-  DatabaseClient: Symbol.for('DatabaseClient'),
-  UserService: Symbol.for('UserService'),
-  UserModel: Symbol.for('UserModel'),
+  LoggerInterface: Symbol.for('LoggerInterface'),
+  ConfigInterface: Symbol.for('ConfigInterface'),
   CategoryService: Symbol.for('CategoryService'),
   CategoryModel: Symbol.for('CategoryModel'),
+  DatabaseClientInterface: Symbol.for('DatabaseClientInterface'),
+  UserServiceInterface: Symbol.for('UserServiceInterface'),
+  UserModel: Symbol.for('UserModel'),
+  OfferServiceInterface: Symbol.for('OfferServiceInterface'),
+  OfferModel: Symbol.for('OfferModel'),
 } as const;
