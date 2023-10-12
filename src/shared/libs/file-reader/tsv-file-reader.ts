@@ -9,7 +9,7 @@ import { createReadStream } from 'node:fs';
 
 const CHUNK_SIZE = 16384; // 16KB размер чанка
 
-export class TSVFileReader extends EventEmitter implements FileReader {
+export default class TSVFileReader extends EventEmitter implements FileReader {
   constructor(public filename: string) {
     super();
   }
