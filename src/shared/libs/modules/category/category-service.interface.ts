@@ -1,5 +1,5 @@
 import {DocumentType} from '@typegoose/typegoose';
-import { CreateCategoryDto } from './dto/create-category.dto.js';
+import { CreateCategoryDto } from '../dto/create-category.dto.js';
 import { CategoryEntity } from './category.entity.js';
 
 export interface CategoryService {
