@@ -1,7 +1,8 @@
 import chalk from 'chalk';
-import { Command } from './command.interface.js';
+import { CliCommandInterface } from './command.interface.js';
 
-export class HelpCommand implements Command {
+export default class HelpCommand implements CliCommandInterface {
+  public readonly name = '--help';
   public getName(): string {
     return '--help';
   }
