@@ -1,7 +1,9 @@
-export class CreateUserDto {
-  public email: string;
-  public avatarPath: string;
-  public firstname: string;
-  public lastname: string;
-  public password: string;
+import { UserType } from '../../../types/user-type.enum.js';
+
+export default class CreateUserDto {
+  public name!: string;
+  public mail!: string;
+  public avatar?: string;
+  public password!: string;
+  public type!: UserType;
 }
