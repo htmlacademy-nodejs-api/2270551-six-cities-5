@@ -1,30 +1,47 @@
-import got from 'got';
 import { CliCommandInterface } from './commands/command.interface.js';
-import { MockServerData } from '../shared/types/mock-server-data.type.js';
-import TSVOfferGenerator from '../shared/libs/offer-generator/tsv-offer-generator.js';
-import TSVFileWriter from '../shared/libs/file-writer/tsv-file-writer.js';
 
-export default class GenerateCommand implements CliCommandInterface {
-  public readonly name = '--generate';
-  private initialData!: MockServerData;
-  public async execute(...parameters:string[]): Promise<void> {
-    const [count, filepath, url] = parameters;
-    const offerCount = Number.parseInt(count, 10);
+type ParsedCommand = {
+  [key: string]: string[]
+}
 
-    try {
-      this.initialData = await got.get<MockServerData>(url).json();
-    } catch {
-      console.warn(`Can't fetch data from ${url}.`);
-      return;
-    }
+export default class CLIApplication {
+  private commands: { [propertyName: string]: CliCommandInterface } = {};
+  private defaultCommand = '--help';
 
-    const offerGeneratorString = new TSVOfferGenerator(this.initialData);
-    const tsvFileWriter = new TSVFileWriter(filepath);
+  private parseCommand(cliArguments: string[]): ParsedCommand {
+    const parsedCommand: ParsedCommand = {};
+    let command = '';
 
-    for (let i = 0; i < offerCount; i++) {
-      await tsvFileWriter.write(offerGeneratorString.generate());
-    }
+    return cliArguments.reduce((acc, item) => {
+      if (item.startsWith('--')) {
+        acc[item] = [];
+        command = item;
+      } else if (command && item) {
+        acc[command].push(item);
+      }
 
-    console.log(`File ${filepath} was created!`);
+      return acc;
+    }, parsedCommand);
   }
+
+  public getCommand(commandName: string): CliCommandInterface {
+    return this.commands[commandName] ?? this.commands[this.defaultCommand];
+  }
+
+  public processCommand(argv: string[]): void {
+    const parsedCommand = this.parseCommand(argv);
+    const [commandName] = Object.keys(parsedCommand);
+    const command = this.getCommand(commandName);
+    const commandArguments = parsedCommand[commandName] ?? [];
+    command.execute(...commandArguments);
+  }
+
+  public registerCommands(commandList: CliCommandInterface[]): void {
+    commandList.reduce((acc, command) => {
+      const cliCommand = command;
+      acc[cliCommand.name] = cliCommand;
+      return acc;
+    }, this.commands);
+  }
+
 }
