@@ -1,5 +1,5 @@
 import { DatabaseClient } from '../../shared/libs/database-client/database-client.interface.js';
-import { OfferServiceInterface } from '../../shared/libs/modules/Offer/offer-service.interface.js';
+import { OfferServiceInterface } from '../../shared/libs/modules/offer/offer-service.interface.js';
 import { UserServiceInterface } from '../../shared/libs/modules/user/user-service.interface.js';
 import TSVFileReader from '../../shared/libs/file-reader/tsv-file-reader.js';
 import { CliCommandInterface } from './command.interface.js';
@@ -8,8 +8,8 @@ import { LoggerInterface } from '../../shared/libs/logger/logger.interface.js';
 import ConsoleLogger from '../../shared/libs/logger/console.logger.js';
 import UserService from '../../shared/libs/modules/user/default-user.service.js';
 import { UserModel } from '../../shared/libs/modules/user/user.entity.js';
-import OfferService from '../../shared/libs/modules/Offer/default-offer.service.js';
-import { OfferModel } from '../../shared/libs/modules/Offer/offer.entity.js';
+import OfferService from '../../shared/libs/modules/offer/default-offer.service.js';
+import { OfferModel } from '../../shared/libs/modules/offer/offer.entity.js';
 import MongoClientService from '../../shared/libs/database-client/mongo.database-client.js';
 import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from '../../const.js';
 import { Offer } from '../../shared/types/offer.type.js';
@@ -46,7 +46,6 @@ export default class ImportCommand implements CliCommandInterface {
 
   private async onLine(line: string, resolve: () => void) {
     const offer = createOffer(line);
-
     await this.saveOffer(offer);
     resolve();
   }
