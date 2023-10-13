@@ -57,3 +57,5 @@ export const MAX_RENTAL_PRICE = 100000;
 
 export const DEFAULT_USER_PASSWORD = '123456';
 export const DEFAULT_DB_PORT = '27017';
+
+export const EMAIL_REGEX = /^([\w-\\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
