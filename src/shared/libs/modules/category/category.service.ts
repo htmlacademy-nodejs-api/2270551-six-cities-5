@@ -5,6 +5,8 @@ import { LoggerInterface } from '../../../libs/logger/index.js';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { CategoryEntity } from './category.entity.js';
 import { CreateCategoryDto } from '../dto/create-category.dto.js';
+import { MAX_CATEGORIES_COUNT } from './category.constant.js';
+import { SortType } from '../../../types/sort-type.enum.js';
 
 export class DefaultCategoryService implements CategoryService {
   constructor(
@@ -53,6 +55,9 @@ export class DefaultCategoryService implements CategoryService {
         { $addFields:
           { id: { $toString: '$_id'}, offerCount: { $size: '$offers'} }
         },
+        { $unset: 'offers' },
+        { $limit: MAX_CATEGORIES_COUNT },
+        { $sort: { offerCount: SortType.Down } }
       ]).exec();
   }
 }
