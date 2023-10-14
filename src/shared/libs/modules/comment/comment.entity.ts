@@ -4,6 +4,7 @@ import { UserEntity } from '../user/user.entity.js';
 
 const { prop, modelOptions } = typegoose;
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface CommentEntity extends defaultClasses.Base {}
 
 @modelOptions({
@@ -11,6 +12,7 @@ export interface CommentEntity extends defaultClasses.Base {}
     collection: 'comments'
   }
 })
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class CommentEntity extends defaultClasses.TimeStamps {
   @prop({ trim: true, required: true })
   public text!: string;
