@@ -5,6 +5,7 @@ import { AppComponent } from './shared/types/index.js';
 import { createRestApplicationContainer } from './rest/rest.container.js';
 import { createUserContainer } from './shared/libs/modules/user/index.js';
 import { createOfferContainer } from './shared/libs/modules/Offer/index.js';
+import { createCommentContainer } from './shared/libs/modules/comment/comment.container.js';
 
 
 async function bootstrap() {
@@ -12,6 +13,7 @@ async function bootstrap() {
     createRestApplicationContainer(),
     createUserContainer(),
     createOfferContainer(),
+    createCommentContainer(),
   );
 
   const application = appContainer.get<RestApplication>(AppComponent.RestApplication);
