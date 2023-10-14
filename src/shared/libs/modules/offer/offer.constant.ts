@@ -1,0 +1,2 @@
+export const PREMIUM_OFFER_BY_CITY_LIMIT = 3;
+export const DEFAULT_OFFER_COUNT = 60;
