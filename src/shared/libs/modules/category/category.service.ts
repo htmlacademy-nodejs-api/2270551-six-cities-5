@@ -1,5 +1,5 @@
 import { CategoryService } from './category-service.interface.js';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { AppComponent } from '../../../types/index.js';
 import { LoggerInterface } from '../../../libs/logger/index.js';
 import { DocumentType, types } from '@typegoose/typegoose';
@@ -8,6 +8,7 @@ import { CreateCategoryDto } from '../dto/create-category.dto.js';
 import { MAX_CATEGORIES_COUNT } from './category.constant.js';
 import { SortType } from '../../../types/sort-type.enum.js';
 
+@injectable()
 export class DefaultCategoryService implements CategoryService {
   constructor(
      @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
