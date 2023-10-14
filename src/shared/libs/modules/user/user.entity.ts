@@ -1,7 +1,8 @@
+import { OfferEntity } from './../offer/offer.entity.js';
 import { UserType } from '../../../types/user-type.enum.js';
 import { User } from '../../../types/user.type.js';
-import typegoose, { getModelForClass, defaultClasses } from '@typegoose/typegoose';
-import { MAX_USER_NAME_LENGTH, MIN_USER_NAME_LENGTH } from '../../../../const.js';
+import typegoose, { getModelForClass, defaultClasses, Ref } from '@typegoose/typegoose';
+import { EMAIL_REGEX,MAX_USER_NAME_LENGTH, MIN_USER_NAME_LENGTH } from '../../../../const.js';
 import { DEFAULT_AVATAR_URL } from '../../../../const.js';
 import { createSHA256 } from '../../../../shared/helpers/hash.js';
 
@@ -27,7 +28,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
   @prop({
     required: true,
     unique: true,
-    match: [/^([\w-\\.]+@([\w-]+\.)+[\w-]{2,4})?$/, 'Email is incorrect'],
+    match: [EMAIL_REGEX, 'Email is incorrect'],
   })
   public mail: string;
 
@@ -47,6 +48,11 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     required: true
   })
   public type: UserType;
+
+  @prop({
+    ref: OfferEntity
+  })
+  public favorites!: Ref<OfferEntity>[];
 
   constructor(userData: User) {
     super();
