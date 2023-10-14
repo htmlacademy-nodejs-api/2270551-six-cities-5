@@ -1,4 +1,4 @@
-import { OfferEntity } from './../offer/offer.entity.js';
+import { OfferEntity } from '../Offer/offer.entity.js';
 import { UserType } from '../../../types/user-type.enum.js';
 import { User } from '../../../types/user.type.js';
 import typegoose, { getModelForClass, defaultClasses, Ref } from '@typegoose/typegoose';
