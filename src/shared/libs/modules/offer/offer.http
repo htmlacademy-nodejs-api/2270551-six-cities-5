@@ -1,0 +1,48 @@
+# Предложения
+## Получить список предлоэений
+GET http://localhost:5000/offers HTTP/1.1
+Content-Type: application/json
+
+###
+
+## Добавить новое предложение
+POST http://localhost:5000/offers HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "test ",
+  "description": "testtesttesttesttest testtesttest testtesttest ",
+  "postDate": "2023-10-18T09:50:49.728Z",
+  "city": {
+    "name": "hamburg",
+    "coords": {
+      "latitude": "1.12",
+      "longitude": "0.312"
+    }
+  },
+  "preview": "https://via.placeholder.com/260x200",
+  "photos": [
+    "https://via.placeholder.com/260x200?text=1",
+    "https://via.placeholder.com/260x200?text=2",
+    "https://via.placeholder.com/260x200?text=3",
+    "https://via.placeholder.com/260x200?text=4",
+    "https://via.placeholder.com/260x200?text=5",
+    "https://via.placeholder.com/260x200?text=6"
+  ],
+  "premium": "true",
+  "favorite": "true",
+  "rating": "2.2",
+  "houseType": "house",
+  "roomNumber": "3",
+  "guests": "1",
+  "price": "12345",
+  "features": [],
+  "userId": "647f00dc2e8f0f99aa764bdd",
+  "commentCount": "33",
+  "coords": {
+    "latitude": "1.12",
+    "longitude": "0.312"
+  }
+}
+
+###
