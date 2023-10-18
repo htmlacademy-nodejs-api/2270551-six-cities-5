@@ -28,7 +28,7 @@ export default class UserController extends Controller {
   }
 
   public async index(_req: Request, res: Response): Promise<void> {
-    const categories = await this.userService.findByEmail(mail);
+    const categories = await this.userService;
     const responseData = fillDTO(UserRdo, categories);
     this.ok(res, responseData);
   }
