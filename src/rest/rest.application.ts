@@ -4,16 +4,24 @@ import { LoggerInterface } from '../shared/libs/logger/index.js';
 import { AppComponent } from '../shared/types/index.js';
 import { DatabaseClient } from '../shared/libs/database-client/index.js';
 import { getMongoURI } from '../shared/helpers/index.js';
+import express, { Express } from 'express';
+import { ControllerInterface } from './../shared/libs/rest/controller/controller.interface.js';
 
 @injectable()
 export default class RestApplication {
+  private expressApp: Express;
+
   constructor(
     @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
     @inject(AppComponent.ConfigInterface) private readonly config: ConfigInterface<RestSchema>,
     @inject(AppComponent.DatabaseClient) private readonly databaseClient: DatabaseClient,
-  ) {}
+    @inject(AppComponent.UserController) private readonly userController: ControllerInterface,
+  ) {
+    this.expressApp = express();
+  }
 
   private async _initDb() {
+    this.logger.info('init DB');
     const mongoUri = getMongoURI(
       this.config.get('DB_USER'),
       this.config.get('DB_PASSWORD'),
@@ -22,7 +30,26 @@ export default class RestApplication {
       this.config.get('DB_NAME'),
     );
 
-    return this.databaseClient.connect(mongoUri);
+    this.databaseClient.connect(mongoUri);
+    this.logger.info('init DB complete');
+  }
+
+  private async _initServer() {
+    this.logger.info('Try to init server...');
+
+    const port = this.config.get('PORT');
+    this.expressApp.listen(port);
+
+    this.logger.info(`🚀Server started on http://localhost:${this.config.get('PORT')}`);
+  }
+
+  private async _initRoutes() {
+    this.logger.info('Controller initialization...');
+
+    //this.expressApp.use('/offers', this.offerController.router);
+    this.expressApp.use('/users', this.userController.router);
+
+    this.logger.info('Controller initialization complete');
   }
 
   public async init() {
@@ -35,5 +62,14 @@ export default class RestApplication {
     this.logger.info('Init database…');
     await this._initDb();
     this.logger.info('Init database completed');
+
+    this.logger.info('Init routes…');
+    await this._initRoutes();
+    this.logger.info('Routers initialization completed');
+
+
+    this.logger.info('Try to init server…');
+    await this._initServer();
+    this.logger.info(`🚀 Server started on http://localhost:${this.config.get('PORT')}`);
   }
 }
