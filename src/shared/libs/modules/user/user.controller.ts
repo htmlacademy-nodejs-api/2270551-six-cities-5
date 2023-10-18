@@ -1,4 +1,4 @@
-//import { StatusCodes } from 'http-status-codes';
+
 import { Request, Response } from 'express';
 import { RestSchema } from './../../config/rest.schema.js';
 import { ConfigInterface } from './../../config/config.interface.js';
@@ -8,6 +8,8 @@ import { AppComponent } from './../../../types/component.enum.js';
 import { inject, injectable } from 'inversify';
 import { Controller } from '../../rest/controller/controller.abstract.js';
 import { LoggerInterface } from '../../logger/logger.interface.js';
+import { fillDTO } from '../../../helpers/common.js';
+import UserRdo from './rdo/user.rdo.js';
 
 
 @injectable()
@@ -27,7 +29,8 @@ export default class UserController extends Controller {
 
   public async index(_req: Request, res: Response): Promise<void> {
     const categories = await this.userService.findByEmail(mail);
-    this.ok(res, categories);
+    const responseData = fillDTO(UserRdo, categories);
+    this.ok(res, responseData);
   }
 
 
