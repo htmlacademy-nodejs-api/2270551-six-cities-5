@@ -1,4 +1,5 @@
-import { StatusCodes } from 'http-status-codes';
+//import { StatusCodes } from 'http-status-codes';
+import { Request, Response } from 'express';
 import { RestSchema } from './../../config/rest.schema.js';
 import { ConfigInterface } from './../../config/config.interface.js';
 import { UserServiceInterface } from './user-service.interface.js';
@@ -21,16 +22,18 @@ export default class UserController extends Controller {
     this.logger.info('Register routes for UserController...');
 
     this.addRoute({path: '/register', method: HttpMethod.Post, handler: this.create});
-    this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login });
+    //this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login });
   }
 
-  public async create(
-// код
-  );
+  public async index(_req: Request, res: Response): Promise<void> {
+    const categories = await this.userService.findByEmail(mail);
+    this.ok(res, categories);
+  }
 
-  public async login(
-   //код
-  );
+
+  public create(_req: Request, _res: Response): void {
+    // Код обработчика
+  }
 
 }
 
