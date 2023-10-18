@@ -10,6 +10,8 @@ import { Controller } from '../../rest/controller/controller.abstract.js';
 import { LoggerInterface } from '../../logger/logger.interface.js';
 import { fillDTO } from '../../../helpers/common.js';
 import UserRdo from './rdo/user.rdo.js';
+import { UnknownRecord } from '../../../types/unknown-record.type.js';
+import CreateUserDto from '../dto/create-user.dto.js';
 
 
 @injectable()
@@ -27,14 +29,21 @@ export default class UserController extends Controller {
     //this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login });
   }
 
-  public async index(_req: Request, res: Response): Promise<void> {
-    const categories = await this.userService;
-    const responseData = fillDTO(UserRdo, categories);
-    this.ok(res, responseData);
+  public async create (
+    {body}: Request<UnknownRecord, UnknownRecord, CreateUserDto>,
+    res: Response,
+  ): Promise<void> {
+    const existsUser = await this.userService.findByEmail(body.mail);
+
+
+    const result = await this.userService.create(body, this.configService.get('SALT'));
+    this.created(
+      res,
+      fillDTO(UserRdo, result)
+    );
   }
 
-
-  public create(_req: Request, _res: Response): void {
+  public logcreate(_req: Request, _res: Response): void {
     // Код обработчика
   }
 
