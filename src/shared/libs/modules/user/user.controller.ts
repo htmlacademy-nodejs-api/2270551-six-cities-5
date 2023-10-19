@@ -14,6 +14,7 @@ import { UnknownRecord } from '../../../types/unknown-record.type.js';
 import CreateUserDto from '../dto/create-user.dto.js';
 import LoginUserDto from '../dto/login-user.dto.js';
 import { StatusCodes } from 'http-status-codes';
+import HttpError from '../../rest/errors/http-error.js';
 
 
 @injectable()
@@ -28,8 +29,8 @@ export default class UserController extends Controller {
     this.logger.info('Register routes for UserController...');
 
     this.addRoute({path: '/register', method: HttpMethod.Post, handler: this.create});
-    //this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login });
-    //this.addRoute({path: '/:email', method: HttpMethod.Get, handler: this.index});
+    this.addRoute({path: '/login', method: HttpMethod.Post, handler: this.login });
+
   }
 
   public async create (
@@ -56,13 +57,20 @@ export default class UserController extends Controller {
     _res: Response,
   ): Promise<void> {
     const existsUser = await this.userService.findByEmail(body.mail);
+
     if (!existsUser) {
-      //throw new HttpError(
-      //  StatusCodes.UNAUTHORIZED,
-      //  `User with email ${body.mail} not found.`,
-      //  'UserController',
-      //);
+      throw new HttpError(
+        StatusCodes.UNAUTHORIZED,
+        `User with email ${body.mail} not found.`,
+        'UserController',
+      );
     }
+
+    throw new HttpError(
+      StatusCodes.NOT_IMPLEMENTED,
+      'Not implemented',
+      'UserController',
+    );
 
   }
 }
