@@ -12,6 +12,8 @@ import { fillDTO } from '../../../helpers/common.js';
 import UserRdo from './rdo/user.rdo.js';
 import { UnknownRecord } from '../../../types/unknown-record.type.js';
 import CreateUserDto from '../dto/create-user.dto.js';
+import LoginUserDto from '../dto/login-user.dto.js';
+import { StatusCodes } from 'http-status-codes';
 
 
 @injectable()
@@ -27,25 +29,40 @@ export default class UserController extends Controller {
 
     this.addRoute({path: '/register', method: HttpMethod.Post, handler: this.create});
     //this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login });
+    //this.addRoute({path: '/:email', method: HttpMethod.Get, handler: this.index});
   }
 
   public async create (
     {body}: Request<UnknownRecord, UnknownRecord, CreateUserDto>,
     res: Response,
   ): Promise<void> {
-    //const existsUser = await this.userService.findByEmail(body.mail);
+    const existsUser = await this.userService.findByEmail(body.mail);
+    if (existsUser) {
+      const existCategoryError = new Error(`Category with name «${body.mail}» exists.`);
+      this.send(res,
+        StatusCodes.UNPROCESSABLE_ENTITY,
+        { error: existCategoryError.message }
+      );
 
+      return this.logger.error(existCategoryError.message, existCategoryError);
+    }
 
     const result = await this.userService.create(body, this.configService.get('SALT'));
-    this.created(
-      res,
-      fillDTO(UserRdo, result)
-    );
+    this.created(res,fillDTO(UserRdo, result));
   }
 
-  public logcreate(_req: Request, _res: Response): void {
-    // Код обработчика
-  }
+  public async login(
+    {body}: Request<UnknownRecord, UnknownRecord, LoginUserDto>,
+    _res: Response,
+  ): Promise<void> {
+    const existsUser = await this.userService.findByEmail(body.mail);
+    if (!existsUser) {
+      //throw new HttpError(
+      //  StatusCodes.UNAUTHORIZED,
+      //  `User with email ${body.mail} not found.`,
+      //  'UserController',
+      //);
+    }
 
+  }
 }
-
