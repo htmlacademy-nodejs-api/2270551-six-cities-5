@@ -16,6 +16,7 @@ export default class RestApplication {
     @inject(AppComponent.ConfigInterface) private readonly config: ConfigInterface<RestSchema>,
     @inject(AppComponent.DatabaseClient) private readonly databaseClient: DatabaseClient,
     @inject(AppComponent.UserController) private readonly userController: ControllerInterface,
+    @inject(AppComponent.OfferController) private readonly offerController: ControllerInterface,
   ) {
     this.expressApp = express();
   }
@@ -34,19 +35,27 @@ export default class RestApplication {
     this.logger.info('init DB complete');
   }
 
+  private async _initMiddleware() {
+    this.logger.info('Global middleware initialization…');
+
+    this.expressApp.use(express.json());
+
+    this.logger.info('Global middleware initialization completed');
+  }
+
   private async _initServer() {
     this.logger.info('Try to init server...');
 
     const port = this.config.get('PORT');
     this.expressApp.listen(port);
 
-    this.logger.info(`🚀Server started on http://localhost:${this.config.get('PORT')}`);
+    //this.logger.info(`🚀Server started on http://localhost:${this.config.get('PORT')}`);
   }
 
   private async _initRoutes() {
     this.logger.info('Controller initialization...');
 
-    //this.expressApp.use('/offers', this.offerController.router);
+    this.expressApp.use('/offers', this.offerController.router);
     this.expressApp.use('/users', this.userController.router);
 
     this.logger.info('Controller initialization complete');
@@ -58,6 +67,10 @@ export default class RestApplication {
     //this.logger.error('ehm', new Error('Some error'));
     //this.logger.debug('This is debug');
     this.logger.info(`Get value from env $PORT: ${this.config.get('PORT')}`);
+
+    this.logger.info('Init app-level middleware');
+    await this._initMiddleware();
+    this.logger.info('App-level middleware initialization completed');
 
     this.logger.info('Init database…');
     await this._initDb();
