@@ -33,7 +33,7 @@ export default class UserController extends Controller {
     {body}: Request<UnknownRecord, UnknownRecord, CreateUserDto>,
     res: Response,
   ): Promise<void> {
-    const existsUser = await this.userService.findByEmail(body.mail);
+    //const existsUser = await this.userService.findByEmail(body.mail);
 
 
     const result = await this.userService.create(body, this.configService.get('SALT'));
