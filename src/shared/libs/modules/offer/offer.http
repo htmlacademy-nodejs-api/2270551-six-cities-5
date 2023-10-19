@@ -6,7 +6,7 @@ Content-Type: application/json
 ###
 
 ## Добавить новое предложение
-POST http://localhost:5000/offers HTTP/1.1
+POST http://localhost:8081/db/offers HTTP/1.1
 Content-Type: application/json
 
 {
