@@ -6,6 +6,7 @@ import { DatabaseClient } from '../shared/libs/database-client/index.js';
 import { getMongoURI } from '../shared/helpers/index.js';
 import express, { Express } from 'express';
 import { ControllerInterface } from './../shared/libs/rest/controller/controller.interface.js';
+import { ExceptionFilterInterface } from './../shared/libs/rest/exception-filters/exception-filter.interface.js';
 
 @injectable()
 export default class RestApplication {
@@ -17,6 +18,7 @@ export default class RestApplication {
     @inject(AppComponent.DatabaseClient) private readonly databaseClient: DatabaseClient,
     @inject(AppComponent.UserController) private readonly userController: ControllerInterface,
     @inject(AppComponent.OfferController) private readonly offerController: ControllerInterface,
+    @inject(AppComponent.ExceptionFilterInterface) private readonly exceptionFilter: ExceptionFilterInterface
   ) {
     this.expressApp = express();
   }
@@ -52,6 +54,15 @@ export default class RestApplication {
     //this.logger.info(`🚀Server started on http://localhost:${this.config.get('PORT')}`);
   }
 
+  private async _initExceptionFilters() {
+    this.logger.info('Exception filters initialization');
+
+    this.expressApp.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
+
+    this.logger.info('Exception filters completed');
+  }
+
+
   private async _initRoutes() {
     this.logger.info('Controller initialization...');
 
@@ -72,6 +83,10 @@ export default class RestApplication {
     await this._initMiddleware();
     this.logger.info('App-level middleware initialization completed');
 
+    this.logger.info('Init exception filters');
+    await this._initExceptionFilters();
+    this.logger.info('Exception filters initialization compleated');
+
     this.logger.info('Init database…');
     await this._initDb();
     this.logger.info('Init database completed');
@@ -79,7 +94,6 @@ export default class RestApplication {
     this.logger.info('Init routes…');
     await this._initRoutes();
     this.logger.info('Routers initialization completed');
-
 
     this.logger.info('Try to init server…');
     await this._initServer();

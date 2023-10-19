@@ -8,6 +8,9 @@ import { LoggerInterface } from '../shared/libs/logger/logger.interface.js';
 import PinoLogger from '../shared/libs/logger/pino.logger.js';
 import { AppComponent } from '../shared/types/component.enum.js';
 import RestApplication from './rest.application.js';
+import ExceptionFilter from '../shared/libs/rest/exception-filters/exception-filter.js';
+import { ExceptionFilterInterface } from '../shared/libs/rest/exception-filters/exception-filter.interface.js';
+
 
 export function createRestApplicationContainer() {
   const restApplicationContainer = new Container();
@@ -31,6 +34,12 @@ export function createRestApplicationContainer() {
     .bind<DatabaseClient>(AppComponent.DatabaseClient)
     .to(MongoDatabaseClient)
     .inSingletonScope();
+
+  restApplicationContainer
+    .bind<ExceptionFilterInterface>(AppComponent.ExceptionFilterInterface)
+    .to(ExceptionFilter)
+    .inSingletonScope();
+
 
   return restApplicationContainer;
 }
