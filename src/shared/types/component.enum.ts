@@ -5,7 +5,7 @@ export const AppComponent = {
   DatabaseClient: Symbol.for('DatabaseClient'),
   CategoryService: Symbol.for('CategoryService'),
   CategoryModel: Symbol.for('CategoryModel'),
-  //DatabaseClientInterface: Symbol.for('DatabaseClientInterface'),
+  DatabaseClientInterface: Symbol.for('DatabaseClientInterface'),
   UserServiceInterface: Symbol.for('UserServiceInterface'),
   UserModel: Symbol.for('UserModel'),
   OfferServiceInterface: Symbol.for('OfferServiceInterface'),
