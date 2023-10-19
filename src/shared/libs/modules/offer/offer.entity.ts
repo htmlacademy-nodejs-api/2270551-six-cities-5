@@ -1,4 +1,4 @@
-import typegoose, { getModelForClass, defaultClasses, Ref } from '@typegoose/typegoose';
+import typegoose, { getModelForClass, defaultClasses, Ref, Severity } from '@typegoose/typegoose';
 import { HouseType } from '../../../types/house-type.enum.js';
 import { City as TCity, CityName } from '../../../types/city.type.js';
 import { Coords as TCoords } from '../../../types/coords.type.js';
@@ -43,8 +43,11 @@ export interface OfferEntity extends defaultClasses.Base {}
 
 @modelOptions({
   schemaOptions: {
-    collection: 'offers'
-  }
+    collection: 'offers',
+  },
+  options: {
+    allowMixed: Severity.ALLOW,
+  },
 })
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
