@@ -13,7 +13,7 @@ export interface UserEntity extends defaultClasses.Base {}
 
 @modelOptions({
   schemaOptions: {
-    collection: 'users'
+    collection: 'users',
   }
 })
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
