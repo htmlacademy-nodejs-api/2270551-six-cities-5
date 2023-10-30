@@ -12,6 +12,8 @@ import { UnknownRecord } from '../../../types/unknown-record.type.js';
 import { ParamOfferId } from '../../../types/param-offerid.type.js';
 import HttpError from '../../rest/errors/http-error.js';
 import { StatusCodes } from 'http-status-codes';
+import UpdateOfferDto from '../dto/update-offer.dto.js';
+
 
 @injectable()
 export default class OfferController extends Controller {
@@ -27,6 +29,7 @@ export default class OfferController extends Controller {
     this.addRoute({path: '/:offerId', method: HttpMethod.Get, handler: this.show});
     this.addRoute({path: '/', method: HttpMethod.Post, handler: this.create});
     this.addRoute({path: '/:offerId', method: HttpMethod.Delete, handler: this.delete});
+    this.addRoute({ path: '/:offerId', method: HttpMethod.Patch, handler: this.update });
   }
 
   public async index(_req: Request, res: Response): Promise<void> {
@@ -74,6 +77,20 @@ export default class OfferController extends Controller {
     }
 
     this.noContent(res, offer);
+  }
+
+  public async update({ body, params }: Request<ParamOfferId, unknown, UpdateOfferDto>, res: Response): Promise<void> {
+    const updatedOffer = await this.offerService.updateById(params.offerId, body);
+
+    if (!updatedOffer) {
+      throw new HttpError(
+        StatusCodes.NOT_FOUND,
+        `Offer with id ${params.offerId} not found.`,
+        'OfferController'
+      );
+    }
+
+    this.ok(res, fillDTO(OfferRdo, updatedOffer));
   }
 
 }
