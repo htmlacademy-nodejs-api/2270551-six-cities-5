@@ -9,6 +9,9 @@ import { fillDTO } from '../../../helpers/common.js';
 import OfferRdo from './rdo/offer.rdo.js';
 import CreateOfferDto from '../dto/create-offer.dto.js';
 import { UnknownRecord } from '../../../types/unknown-record.type.js';
+import { ParamOfferId } from '../../../types/param-offerid.type.js';
+import HttpError from '../../rest/errors/http-error.js';
+import { StatusCodes } from 'http-status-codes';
 
 @injectable()
 export default class OfferController extends Controller {
@@ -22,6 +25,7 @@ export default class OfferController extends Controller {
 
     this.addRoute({path: '/', method: HttpMethod.Get, handler: this.index});
     this.addRoute({path: '/', method: HttpMethod.Post, handler: this.create});
+    this.addRoute({path: '/:offerId', method: HttpMethod.Get, handler: this.show});
   }
 
   public async index(_req: Request, res: Response): Promise<void> {
@@ -40,4 +44,20 @@ export default class OfferController extends Controller {
     const offer = await this.offerService.findById(result.id);
     this.created(res, fillDTO(OfferRdo, offer));
   }
+
+  public async show({ params }: Request<ParamOfferId>, res: Response): Promise<void> {
+    const { offerId } = params;
+    const offer = await this.offerService.findById(offerId);
+
+    if (! offer) {
+      throw new HttpError(
+        StatusCodes.NOT_FOUND,
+        `Offer with id ${offerId} not found.`,
+        'OfferController'
+      );
+    }
+
+    this.ok(res, offer);
+  }
+
 }
