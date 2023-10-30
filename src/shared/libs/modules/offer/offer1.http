@@ -46,3 +46,4 @@ Content-Type: application/json
 }
 
 ###
+GET http://localhost:5000/offers/6528507c43cdb112248edb68 HTTP/1.1
