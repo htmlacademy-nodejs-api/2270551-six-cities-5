@@ -65,7 +65,6 @@ export default class RestApplication {
 
   private async _initRoutes() {
     this.logger.info('Controller initialization...');
-
     this.expressApp.use('/offers', this.offerController.router);
     this.expressApp.use('/users', this.userController.router);
 
