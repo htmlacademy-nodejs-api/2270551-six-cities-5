@@ -18,7 +18,7 @@ export const configRestSchema = convict<RestSchema>({
     doc: 'Port for incoming connections',
     format: 'port',
     env: 'PORT',
-    default: 4000
+    default: 5000
   },
   SALT: {
     doc: 'Salt for password hash',
@@ -54,6 +54,6 @@ export const configRestSchema = convict<RestSchema>({
     doc: 'Database name (MongoDB)',
     format: String,
     env: 'DB_NAME',
-    default: 'buy-and-sell'
+    default: 'six-cities'
   },
 });
