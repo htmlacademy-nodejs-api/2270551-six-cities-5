@@ -14,7 +14,6 @@ import { fillDTO } from '../../../helpers/common.js';
 import commentRdo from './rdo/comment.rdo.js';
 //import { ValidateDtoMiddleware } from '../../middleware/validate-dto.middleware.js';
 
-
 @injectable()
 export default class CommentController extends Controller {
   constructor(
@@ -24,10 +23,14 @@ export default class CommentController extends Controller {
   ) {
     super(logger);
 
-    this.logger.info('Register routes for CommentController…');
-    this.addRoute({ path: '/:offerId', method: HttpMethod.Post, handler: this.create });
-    //middlewares: [new ValidateDtoMiddleware(CreateCommentDto)]
+    this.logger.info('Register routes for CommentController');
 
+    this.addRoute({
+      path: '/',
+      method: HttpMethod.Post,
+      handler: this.create,
+      //middlewares: [new ValidateDtoMiddleware(CreateCommentDto)]
+    });
   }
 
   public async create(
@@ -37,7 +40,7 @@ export default class CommentController extends Controller {
     if(!await this.offerService.exists(body.offerId)) {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
-        `Offer with id ${body.offerId} not found.`,
+        `Offer with id ${body.offerId} not found`,
         'CommentController | create'
       );
     }

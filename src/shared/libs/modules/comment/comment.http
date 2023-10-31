@@ -5,8 +5,8 @@ POST http://localhost:5000/comments HTTP/1.1
 Content-Type: application/json
 
 {
-  "text": "12312312?",
-  "rating": 3,
+  "text": "This is best test comment",
+  "rating": 5,
   "offerId": "6529843dd72220bc28f11b8b",
   "userId": "65284794c57e98df0792167e"
 }
