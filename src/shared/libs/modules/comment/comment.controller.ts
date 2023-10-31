@@ -37,7 +37,7 @@ export default class CommentController extends Controller {
     if(!await this.offerService.exists(body.offerId)) {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
-        'Offer not found',
+        `Offer with id ${body.offerId} not found.`,
         'CommentController | create'
       );
     }
