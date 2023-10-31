@@ -12,7 +12,7 @@ import CreateCommentDto from '../dto/create-comment.dto.js';
 import HttpError from '../../rest/errors/http-error.js';
 import { fillDTO } from '../../../helpers/common.js';
 import commentRdo from './rdo/comment.rdo.js';
-//import { ValidateDtoMiddleware } from '../../middleware/validate-dto.middleware.js';
+import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middleware.js';
 
 @injectable()
 export default class CommentController extends Controller {
@@ -29,7 +29,7 @@ export default class CommentController extends Controller {
       path: '/',
       method: HttpMethod.Post,
       handler: this.create,
-      //middlewares: [new ValidateDtoMiddleware(CreateCommentDto)]
+      middlewares: [new ValidateDtoMiddleware(CreateCommentDto)]
     });
   }
 
