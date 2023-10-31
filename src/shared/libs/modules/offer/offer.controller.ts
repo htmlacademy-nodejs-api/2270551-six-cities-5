@@ -15,6 +15,7 @@ import { StatusCodes } from 'http-status-codes';
 import UpdateOfferDto from '../dto/update-offer.dto.js';
 import { CommentServiceInterface } from '../comment/comment-service.interface.js';
 import CommentRdo from '../comment/rdo/comment.rdo.js';
+import { ValidateObjectIdMiddleware } from '../../rest/middleware/validate-objectid.middleware.js';
 
 
 @injectable()
@@ -27,6 +28,13 @@ export default class OfferController extends Controller {
     super(logger);
 
     this.logger.info('Register routes for OfferController…');
+
+    this.addRoute({
+      path: '/:offerId',
+      method: HttpMethod.Get,
+      handler: this.show,
+      middlewares: [new ValidateObjectIdMiddleware('offerId')]
+    });
 
     this.addRoute({path: '/', method: HttpMethod.Get, handler: this.index});
     this.addRoute({path: '/:offerId', method: HttpMethod.Get, handler: this.show});
