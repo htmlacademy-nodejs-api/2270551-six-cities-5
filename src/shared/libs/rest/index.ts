@@ -4,5 +4,6 @@ export * from './exception-filters/exception-filter.interface.js';
 export * from './exception-filters/exception-filter.js';
 export * from './request-body.type.js';
 export * from './request.params.type.js';
+export * from './middleware/middleware.interface.js';
 
 
