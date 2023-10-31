@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
 import { types } from '@typegoose/typegoose';
 import { OfferEntity, OfferModel } from './offer.entity.js';
-import { ControllerInterface } from './../../rest/controller/controller.interface.js';
+import { ControllerInterface } from '../../rest/controller/controller.interface.js';
 import { AppComponent } from '../../../types/component.enum.js';
 import { OfferServiceInterface } from './offer-service.interface.js';
 import OfferService from './default-offer.service.js';

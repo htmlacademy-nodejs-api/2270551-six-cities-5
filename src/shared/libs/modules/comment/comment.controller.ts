@@ -6,7 +6,7 @@ import { LoggerInterface } from '../../logger/logger.interface.js';
 import { CommentServiceInterface } from './comment-service.interface.js';
 import { Controller } from '../../rest/controller/controller.abstract.js';
 import { HttpMethod } from './../../rest/http-method.enum.js';
-import { OfferServiceInterface } from '../offer/offer-service.interface.js';
+import { OfferServiceInterface } from '../Offer/offer-service.interface.js';
 import { UnknownRecord } from '../../../types/unknown-record.type.js';
 import CreateCommentDto from '../dto/create-comment.dto.js';
 import HttpError from '../../rest/errors/http-error.js';

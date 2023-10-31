@@ -10,7 +10,7 @@ import {
   MIN_OFFER_DESCRIPTION_LENGTH,
   MIN_OFFER_TITLE_LENGTH,
   OFFER_PHOTOS_QUANTITY
-} from '../offer/offer.constant.js';
+} from './offer.constant.js';
 import { UserEntity } from '../user/user.entity.js';
 import { IsLatLong, IsLongitude } from 'class-validator';
 
