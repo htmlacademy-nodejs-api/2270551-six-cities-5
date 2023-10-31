@@ -53,24 +53,17 @@ export default class UserController extends Controller {
   }
 
   public async login(
-    {body}: Request<UnknownRecord, UnknownRecord, LoginUserDto>,
+    { body }: Request<UnknownRecord, UnknownRecord, LoginUserDto>,
     _res: Response,
   ): Promise<void> {
     const existsUser = await this.userService.findByEmail(body.mail);
 
     if (!existsUser) {
       throw new HttpError(
-        StatusCodes.UNAUTHORIZED,
+        StatusCodes.NOT_FOUND,
         `User with email ${body.mail} not found.`,
-        'UserController',
+        'UserController | login',
       );
     }
-
-    throw new HttpError(
-      StatusCodes.NOT_IMPLEMENTED,
-      'Not implemented',
-      'UserController',
-    );
-
   }
 }
