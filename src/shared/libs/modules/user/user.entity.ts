@@ -2,9 +2,8 @@ import { OfferEntity } from '../offer/offer.entity.js';
 import { UserType } from '../../../types/user-type.enum.js';
 import { User } from '../../../types/user.type.js';
 import typegoose, { getModelForClass, defaultClasses, Ref } from '@typegoose/typegoose';
-import { EMAIL_REGEX,MAX_USER_NAME_LENGTH, MIN_USER_NAME_LENGTH } from '../../../../const.js';
-import { DEFAULT_AVATAR_URL } from '../../../../const.js';
 import { createSHA256 } from '../../../../shared/helpers/hash.js';
+import { DEFAULT_AVATAR_URL } from './user.constant.js';
 
 const { prop, modelOptions } = typegoose;
 
@@ -20,15 +19,12 @@ export interface UserEntity extends defaultClasses.Base {}
 export class UserEntity extends defaultClasses.TimeStamps implements User {
   @prop({
     required: true,
-    minlength: [MIN_USER_NAME_LENGTH, `Min length for name is ${ MIN_USER_NAME_LENGTH}`],
-    maxlength: [MAX_USER_NAME_LENGTH, `Max length for name is ${ MAX_USER_NAME_LENGTH}`]
   })
   public name: string;
 
   @prop({
     required: true,
     unique: true,
-    match: [EMAIL_REGEX, 'Email is incorrect'],
   })
   public mail: string;
 
