@@ -27,8 +27,8 @@ export default class OfferService implements OfferServiceInterface {
   public async find(): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
       .find({}, {}, { limit: DEFAULT_OFFER_COUNT })
-      .sort({createdAt: SortType.Down})
-      .populate('userId')
+      .sort({ createdAt: SortType.Down })
+      .populate(['userId', 'coords', 'city'])
       .exec();
   }
 
@@ -69,10 +69,10 @@ export default class OfferService implements OfferServiceInterface {
       .exec();
   }
 
-  public async findPremiumByCity(cityName: CityName): Promise<DocumentType<OfferEntity, types.BeAnObject>[]> {
+  public async findPremiumByCityName(cityName: CityName): Promise<DocumentType<OfferEntity, types.BeAnObject>[]> {
     return this.offerModel
-      .find({ city: { cityName }, premium: true }, {}, { limit: PREMIUM_OFFER_BY_CITY_LIMIT })
-      .sort({createdAt: SortType.Down})
+      .find({ 'city.name': cityName, premium: true }, {}, { limit: PREMIUM_OFFER_BY_CITY_LIMIT })
+      .sort({ createdAt: SortType.Down })
       .populate(['userId', 'coords', 'city'])
       .exec();
   }
