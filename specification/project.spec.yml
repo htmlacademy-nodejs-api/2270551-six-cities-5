@@ -105,6 +105,7 @@ paths:
         "400":
           description: Произошла ошибка
 
+
   /offers:
     get:
       tags:
