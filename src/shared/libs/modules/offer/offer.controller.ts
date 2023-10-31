@@ -1,3 +1,4 @@
+import * as core from 'express-serve-static-core';
 import { OfferServiceInterface } from './offer-service.interface.js';
 import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
@@ -17,7 +18,16 @@ import { CommentServiceInterface } from '../comment/comment-service.interface.js
 import CommentRdo from '../comment/rdo/comment.rdo.js';
 import { ValidateObjectIdMiddleware } from '../../rest/middleware/validate-objectid.middleware.js';
 import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middleware.js';
+import { CityName } from '../../../types/city.type.js';
 
+
+type ParamsGetOffer = {
+  offerId: string
+}
+
+type ParamsGetOffersByCityName = {
+  cityName: CityName
+}
 
 @injectable()
 export default class OfferController extends Controller {
@@ -41,11 +51,11 @@ export default class OfferController extends Controller {
       handler: this.create,
       middlewares: [new ValidateDtoMiddleware(CreateOfferDto)]
     });
-    //this.addRoute({
-    //path: '/premium/:cityName',
-    //method: HttpMethod.Get,
-    //handler: this.getPremiumByCityName
-    //});
+    this.addRoute({
+      path: '/premium/:cityName',
+      method: HttpMethod.Get,
+      handler: this.getPremiumByCityName
+    });
     this.addRoute({
       path: '/:offerId',
       method: HttpMethod.Get,
@@ -115,7 +125,7 @@ export default class OfferController extends Controller {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
         `Offer with id ${offerId} not found.`,
-        'OfferController'
+        'OfferControlle | delete'
       );
     }
     await this.commentService.deleteByOfferId(offerId);
@@ -123,31 +133,50 @@ export default class OfferController extends Controller {
     this.noContent(res, offer);
   }
 
-  public async update({ body, params }: Request<ParamOfferId, unknown, UpdateOfferDto>, res: Response): Promise<void> {
-    const updatedOffer = await this.offerService.updateById(params.offerId, body);
+  public async update(
+    { body, params }: Request<core.ParamsDictionary | ParamsGetOffer, UnknownRecord, UpdateOfferDto>,
+    res: Response
+  ): Promise<void> {
+    const { offerId } = params;
+    const updatedOffer = await this.offerService.updateById(offerId, body);
 
-    if (!updatedOffer) {
+    if(!updatedOffer) {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
-        `Offer with id ${params.offerId} not found.`,
-        'OfferController'
+        'Offer not found',
+        'OfferController | update'
       );
     }
 
     this.ok(res, fillDTO(OfferRdo, updatedOffer));
   }
 
-  public async getComments({ params }: Request<ParamOfferId>, res: Response): Promise<void> {
-    if (!await this.offerService.exists(params.offerId)) {
+  public async getComments(
+    { params }: Request<core.ParamsDictionary | ParamsGetOffer, object, object>,
+    res: Response
+  ): Promise<void> {
+    const { offerId } = params;
+    if(!await this.offerService.exists(offerId)) {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
-        `Offer with id ${params.offerId} not found.`,
-        'OfferController'
+        'Offer not found',
+        'OfferController | getComments'
       );
     }
 
-    const comments = await this.commentService.findByOfferId(params.offerId);
+    const comments = await this.commentService.findByOfferId(offerId);
     this.ok(res, fillDTO(CommentRdo, comments));
+  }
+
+  public async getPremiumByCityName(
+    { params }: Request<core.ParamsDictionary | ParamsGetOffersByCityName>,
+    res: Response
+  ) {
+    const { cityName } = params;
+
+    const offers = await this.offerService.findPremiumByCityName((cityName as CityName));
+
+    this.ok(res, fillDTO(OfferRdo, offers));
   }
 
 }
