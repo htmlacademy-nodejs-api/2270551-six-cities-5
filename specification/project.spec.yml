@@ -105,6 +105,84 @@ paths:
         "400":
           description: Произошла ошибка
 
+  /users/favorites:
+    get:
+      tags:
+        - users
+      summary: Получение предложений, добавленных в избранное
+      description: Сервис возвращает все предложения, добавленные в избранное.
+      parameters:
+        - name: token
+          $ref: '#/components/parameters/token'
+
+      responses:
+        "200":
+          description: Предложения найдены
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offers'
+
+        "401":
+          description: Пользователь не авторизован.
+
+        "404":
+          description: Предложения не найдены
+
+    patch:
+      tags:
+        - users
+      summary: Удаление/Добавление предложения из/в спискок избранных предложений.
+      parameters:
+         - name: token
+           $ref: '#/components/parameters/token'
+
+      requestBody:
+          description: id объявления для удаления/добавления предложения из/в спискок избранных предложений.
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  id:
+                    type: string
+                required:
+                  - "id"
+
+
+      responses:
+        "200":
+          description: Объявление удалено/добавлено из/в список избранных предложений
+
+        "404":
+          description: Объявление не найдено.
+
+        "409":
+          $ref: '#/components/responses/conflict'
+
+  /users/{userId}/avatar:
+    post:
+      tags:
+        - users
+      summary: Загрузка аватара юзера
+      description: Сервис предоставляет ресурс для добавления аватара
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+
+      requestBody:
+        description: Информация о аватаре
+        content:
+          multipart/form-data:
+            encoding:
+              avatarImage:
+                contentType: image/*
+      responses:
+        "200":
+          description: Аватар создан.
 
   /offers:
     get:
@@ -234,62 +312,7 @@ paths:
         "409":
           $ref: '#/components/responses/conflict'
 
-  /favorites:
-    get:
-      tags:
-        - users
-      summary: Получение предложений, добавленных в избранное
-      description: Сервис возвращает все предложения, добавленные в избранное.
-      parameters:
-        - name: token
-          $ref: '#/components/parameters/token'
-
-      responses:
-        "200":
-          description: Предложения найдены
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/offers'
-
-        "401":
-          description: Пользователь не авторизован.
-
-        "404":
-          description: Предложения не найдены
-
-    patch:
-      tags:
-        - users
-      summary: Удаление/Добавление предложения из/в спискок избранных предложений.
-      parameters:
-         - name: token
-           $ref: '#/components/parameters/token'
-
-      requestBody:
-          description: id объявления для удаления/добавления предложения из/в спискок избранных предложений.
-          content:
-            application/json:
-              schema:
-                type: 'object'
-                properties:
-                  id:
-                    type: string
-                required:
-                  - "id"
-
-
-      responses:
-        "200":
-          description: Объявление удалено/добавлено из/в список избранных предложений
-
-        "404":
-          description: Объявление не найдено.
-
-        "409":
-          $ref: '#/components/responses/conflict'
-
-  /comments/{id}:
+  /offers/{id}/comments/:
     get:
       tags:
         - comments
@@ -310,6 +333,38 @@ paths:
         "404":
           description: Объявление не найдено.
 
+  /offers/premium/{cityName}:
+    get:
+      tags:
+        - offers
+      summary: Получение списка премиальных предложений для определённого города.
+      description: Сервис предоставляет ресурс для получения списка премиальных предложений для определённого города. Премиальное предложение — предложение с флагом «Premium». Сервис возвращает не больше 3 предложений с флагом «Premium». Список возвращаемых предложений отсортирован по дате публикации (по убыванию).
+      parameters:
+        - name: cityName
+          in: path
+          schema:
+            type: string
+            enum:
+              - paris
+              - cologne
+              - brussels
+              - amsterdam
+              - hamburg
+              - dusseldorf
+          required: true
+
+      responses:
+        "200":
+          description: Предложения найдены. Возвращает массив с предложениями.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offers'
+
+        "404":
+          description: Предложения не найдены.
+
+  /comments/:
     post:
       tags:
         - comments
@@ -342,37 +397,6 @@ paths:
 
         "409":
           $ref: '#/components/responses/conflict'
-
-  /premium/{cityName}:
-    get:
-      tags:
-        - offers
-      summary: Получение списка премиальных предложений для определённого города.
-      description: Сервис предоставляет ресурс для получения списка премиальных предложений для определённого города. Премиальное предложение — предложение с флагом «Premium». Сервис возвращает не больше 3 предложений с флагом «Premium». Список возвращаемых предложений отсортирован по дате публикации (по убыванию).
-      parameters:
-        - name: cityName
-          in: path
-          schema:
-            type: string
-            enum:
-              - paris
-              - cologne
-              - brussels
-              - amsterdam
-              - hamburg
-              - dusseldorf
-          required: true
-
-      responses:
-        "200":
-          description: Предложения найдены. Возвращает массив с предложениями.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/offers'
-
-        "404":
-          description: Предложения не найдены.
 
 components:
   responses:
