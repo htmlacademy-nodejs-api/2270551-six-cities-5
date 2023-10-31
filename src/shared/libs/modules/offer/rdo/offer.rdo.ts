@@ -1,9 +1,9 @@
-import { HouseType } from './../../../../types/house-type.enum.js';
-import { Exclude, Expose } from 'class-transformer';
-import { City } from '../../../../types/city.type.js';
+import { HouseType } from '../../../../types/house-type.enum.js';
+import { Exclude, Expose, Type } from 'class-transformer';
+//import { City } from '../../../../types/city.type.js';
 import { Feature } from '../../../../types/feature.enum.js';
-import { User } from '../../../../types/user.type.js';
-import { Coords } from '../../../../types/coords.type.js';
+import UserRdo from '../../user/rdo/user.rdo.js';
+import { City, Coords } from '../offer.entity.js';
 
 export default class OfferRdo {
   @Exclude()
@@ -19,6 +19,7 @@ export default class OfferRdo {
   public description!: string;
 
   @Expose()
+  @Type(() => City)
   public city!: City;
 
   @Expose()
@@ -51,13 +52,15 @@ export default class OfferRdo {
   @Expose()
   public features!: Feature;
 
-  @Expose()
-  public userId!: User;
+  @Expose({ name: 'userId' })
+  @Type(() => UserRdo)
+  public user!: UserRdo;
 
   @Expose()
   public commentCount!: number;
 
   @Expose()
+  @Type(() => Coords)
   public coords!: Coords;
 
   @Expose({ name: 'createdAt'})

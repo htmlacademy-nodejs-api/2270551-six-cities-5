@@ -21,7 +21,7 @@ export default class UserService implements UserServiceInterface {
     const result = await this.userModel.create(user);
     this.logger.info(`New user created: ${user.mail}`);
 
-    return result.populate('favorites');
+    return result;
   }
 
   public async findOrCreate(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
@@ -44,6 +44,6 @@ export default class UserService implements UserServiceInterface {
   }
 
   public async findByEmail(mail: string): Promise<DocumentType<UserEntity> | null> {
-    return this.userModel.findOne({ mail }).populate('favorites');
+    return this.userModel.findOne({ mail });
   }
 }

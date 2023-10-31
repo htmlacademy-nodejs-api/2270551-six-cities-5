@@ -15,6 +15,12 @@ import CreateUserDto from '../dto/create-user.dto.js';
 import LoginUserDto from '../dto/login-user.dto.js';
 import { StatusCodes } from 'http-status-codes';
 import HttpError from '../../rest/errors/http-error.js';
+import OfferRdo from '../offer/rdo/offer.rdo.js';
+import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middleware.js';
+
+ type BodyGetUser = {
+   userId: string
+ }
 
 
 @injectable()
@@ -28,24 +34,37 @@ export default class UserController extends Controller {
 
     this.logger.info('Register routes for UserController...');
 
-    this.addRoute({path: '/register', method: HttpMethod.Post, handler: this.create});
-    this.addRoute({path: '/login', method: HttpMethod.Post, handler: this.login });
+    this.addRoute({
+      path: '/register',
+      method: HttpMethod.Post,
+      handler: this.create,
+      middlewares: [new ValidateDtoMiddleware(CreateUserDto)]
+    });
+    this.addRoute({
+      path: '/login',
+      method: HttpMethod.Post,
+      handler: this.login,
+      middlewares: [new ValidateDtoMiddleware(LoginUserDto)]
+    });
+    this.addRoute({
+      path: '/favorites',
+      method: HttpMethod.Post,
+      handler: this.getFavorites
+    });
 
   }
 
   public async create (
-    {body}: Request<UnknownRecord, UnknownRecord, CreateUserDto>,
+    { body }: Request<UnknownRecord, UnknownRecord, CreateUserDto>,
     res: Response,
   ): Promise<void> {
     const existsUser = await this.userService.findByEmail(body.mail);
     if (existsUser) {
-      const existCategoryError = new Error(`Category with name «${body.mail}» exists.`);
-      this.send(res,
-        StatusCodes.UNPROCESSABLE_ENTITY,
-        { error: existCategoryError.message }
+      throw new HttpError(
+        StatusCodes.CONFLICT,
+        `User with email «${body.mail}» exists.`,
+        'UserController | create'
       );
-
-      return this.logger.error(existCategoryError.message, existCategoryError);
     }
 
     const result = await this.userService.create(body, this.configService.get('SALT'));
@@ -53,24 +72,36 @@ export default class UserController extends Controller {
   }
 
   public async login(
-    {body}: Request<UnknownRecord, UnknownRecord, LoginUserDto>,
+    { body }: Request<UnknownRecord, UnknownRecord, LoginUserDto>,
     _res: Response,
   ): Promise<void> {
     const existsUser = await this.userService.findByEmail(body.mail);
 
     if (!existsUser) {
       throw new HttpError(
-        StatusCodes.UNAUTHORIZED,
+        StatusCodes.NOT_FOUND,
         `User with email ${body.mail} not found.`,
-        'UserController',
+        'UserController | login',
+      );
+    }
+  }
+
+  public async getFavorites(
+    { body }: Request<UnknownRecord, UnknownRecord, BodyGetUser>,
+    res: Response
+  ): Promise<void> {
+    const user = await this.userService.findById(body.userId);
+
+    if (!user) {
+      throw new HttpError(
+        StatusCodes.NOT_FOUND,
+        'User not found.',
+        'UserController | getFavorites',
       );
     }
 
-    throw new HttpError(
-      StatusCodes.NOT_IMPLEMENTED,
-      'Not implemented',
-      'UserController',
-    );
+    const { favorites } = await user.populate('favorites');
 
+    this.ok(res, fillDTO(OfferRdo, favorites));
   }
 }

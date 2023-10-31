@@ -22,12 +22,12 @@ export default class CommentService implements CommentServiceInterface {
     return this.commentModel
       .find({ offerId }, {}, { limit: DEFAULT_COMMENT_COUNT })
       .sort({createdAt: SortType.Down})
-      .populate(['user', 'offerId']);
+      .populate(['userId', 'offerId']);
   }
 
-  public async deleteByOfferId(offerId: string): Promise<number> {
+  public async deleteByOfferId(offerId: string): Promise<number | null> {
     const result = await this.commentModel
-      .deleteMany({offerId})
+      .deleteMany({ offerId })
       .exec();
 
     return result.deletedCount;

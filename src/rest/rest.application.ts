@@ -18,7 +18,8 @@ export default class RestApplication {
     @inject(AppComponent.DatabaseClient) private readonly databaseClient: DatabaseClient,
     @inject(AppComponent.UserController) private readonly userController: ControllerInterface,
     @inject(AppComponent.OfferController) private readonly offerController: ControllerInterface,
-    @inject(AppComponent.ExceptionFilterInterface) private readonly exceptionFilter: ExceptionFilterInterface
+    @inject(AppComponent.ExceptionFilterInterface) private readonly exceptionFilter: ExceptionFilterInterface,
+    @inject(AppComponent.CommentController) private readonly commentController: ControllerInterface,
   ) {
     this.expressApp = express();
   }
@@ -65,9 +66,9 @@ export default class RestApplication {
 
   private async _initRoutes() {
     this.logger.info('Controller initialization...');
-
     this.expressApp.use('/offers', this.offerController.router);
     this.expressApp.use('/users', this.userController.router);
+    this.expressApp.use('/comments', this.commentController.router);
 
     this.logger.info('Controller initialization complete');
   }

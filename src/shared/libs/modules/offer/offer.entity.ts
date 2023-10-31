@@ -1,4 +1,5 @@
 import typegoose, { getModelForClass, defaultClasses, Ref, Severity } from '@typegoose/typegoose';
+import { Expose } from 'class-transformer';
 import { HouseType } from '../../../types/house-type.enum.js';
 import { City as TCity, CityName } from '../../../types/city.type.js';
 import { Coords as TCoords } from '../../../types/coords.type.js';
@@ -9,33 +10,44 @@ import {
   MIN_OFFER_DESCRIPTION_LENGTH,
   MIN_OFFER_TITLE_LENGTH,
   OFFER_PHOTOS_QUANTITY
-} from '../../../../const.js';
+} from './offer.constant.js';
 import { UserEntity } from '../user/user.entity.js';
+import { IsLatLong, IsLongitude } from 'class-validator';
 
 const { prop, modelOptions } = typegoose;
 
-class Coords implements TCoords {
+
+export class Coords implements TCoords {
+  @Expose()
   @prop({
     required: true
   })
+  @IsLatLong({ message: 'Wront latitude' })
     latitude!: number;
 
+  @Expose()
   @prop({
     required: true
   })
+  @IsLongitude({ message: 'Wront longitude' })
     longitude!: number;
 }
 
-class City implements TCity {
+export class City implements TCity {
+  @Expose()
   @prop({
     required: true
   })
   public name!: CityName;
 
+  @Expose()
   @prop({
-    type: Coords
+    required: true
   })
-  public coords!: Coords;
+  public coords!: {
+    latitude: number;
+    longitude: number
+  };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
@@ -74,7 +86,8 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public postDate!: Date;
 
   @prop({
-    required: true
+    required: true,
+    _id: false
   })
   public city!: City;
 
@@ -154,6 +167,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     required: true,
+    _id: false
   })
   public coords!: Coords;
 }
