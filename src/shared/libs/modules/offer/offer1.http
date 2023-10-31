@@ -29,8 +29,8 @@ Content-Type: application/json
     "https://via3.placeholder.com/260x200?text=5",
     "https://via3.placeholder.com/260x200?text=6"
   ],
-  "premium": "true",
-  "favorite": "true",
+  "premium": true,
+  "favorite": true,
   "rating": "2.2",
   "houseType": "house",
   "roomNumber": "3",
