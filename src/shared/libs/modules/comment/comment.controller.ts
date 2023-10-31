@@ -1,4 +1,4 @@
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { AppComponent } from './../../../types/component.enum.js';
@@ -11,10 +11,11 @@ import { UnknownRecord } from '../../../types/unknown-record.type.js';
 import CreateCommentDto from '../dto/create-comment.dto.js';
 import HttpError from '../../rest/errors/http-error.js';
 import { fillDTO } from '../../../helpers/common.js';
-import commentRdo from './rdo/comment-rdo.js';
+import commentRdo from './rdo/comment.rdo.js';
 //import { ValidateDtoMiddleware } from '../../middleware/validate-dto.middleware.js';
 
 
+@injectable()
 export default class CommentController extends Controller {
   constructor(
     @inject(AppComponent.LoggerInterface) protected readonly logger: LoggerInterface,
@@ -23,14 +24,10 @@ export default class CommentController extends Controller {
   ) {
     super(logger);
 
-    this.logger.info('Register routes for CommentController');
+    this.logger.info('Register routes for CommentController…');
+    this.addRoute({ path: '/:offerId', method: HttpMethod.Post, handler: this.create });
+    //middlewares: [new ValidateDtoMiddleware(CreateCommentDto)]
 
-    this.addRoute({
-      path: '/',
-      method: HttpMethod.Post,
-      handler: this.create,
-      //middlewares: [new ValidateDtoMiddleware(CreateCommentDto)]
-    });
   }
 
   public async create(
