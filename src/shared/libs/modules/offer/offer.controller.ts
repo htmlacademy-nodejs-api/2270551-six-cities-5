@@ -19,6 +19,7 @@ import CommentRdo from '../comment/rdo/comment.rdo.js';
 import { ValidateObjectIdMiddleware } from '../../rest/middleware/validate-objectid.middleware.js';
 import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middleware.js';
 import { CityName } from '../../../types/city.type.js';
+import {DocumentExistsMiddleware} from '../../rest/middleware/document-exists.middleware.js';
 
 
 type ParamsGetOffer = {
@@ -49,7 +50,9 @@ export default class OfferController extends Controller {
       path: '/',
       method: HttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateOfferDto)]
+      middlewares: [new ValidateDtoMiddleware(CreateOfferDto),
+        new ValidateDtoMiddleware(CreateOfferDto)
+      ]
     });
     this.addRoute({
       path: '/premium/:cityName',
@@ -60,13 +63,17 @@ export default class OfferController extends Controller {
       path: '/:offerId',
       method: HttpMethod.Get,
       handler: this.show,
-      middlewares: [new ValidateObjectIdMiddleware('offerId')]
+      middlewares: [new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
+      ]
     });
     this.addRoute({
       path: '/:offerId',
       method: HttpMethod.Delete,
       handler: this.delete,
-      middlewares: [new ValidateObjectIdMiddleware('offerId')]
+      middlewares: [new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
+      ]
     });
     this.addRoute({
       path: '/:offerId',
@@ -74,6 +81,7 @@ export default class OfferController extends Controller {
       handler: this.update,
       middlewares: [
         new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
         new ValidateDtoMiddleware(UpdateOfferDto)
       ]
     });
@@ -81,7 +89,10 @@ export default class OfferController extends Controller {
       path: '/:offerId/comments',
       method: HttpMethod.Get,
       handler: this.getComments,
-      middlewares: [new ValidateObjectIdMiddleware('offerId')]
+      middlewares: [
+        new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
+      ]
     });
   }
 
