@@ -10,9 +10,9 @@ import { fillDTO } from '../../../helpers/common.js';
 import OfferRdo from './rdo/offer.rdo.js';
 import CreateOfferDto from '../dto/create-offer.dto.js';
 import { UnknownRecord } from '../../../types/unknown-record.type.js';
-import { ParamOfferId } from '../../../types/param-offerid.type.js';
-import HttpError from '../../rest/errors/http-error.js';
-import { StatusCodes } from 'http-status-codes';
+//import { ParamOfferId } from '../../../types/param-offerid.type.js';
+//import HttpError from '../../rest/errors/http-error.js';
+//import { StatusCodes } from 'http-status-codes';
 import UpdateOfferDto from '../dto/update-offer.dto.js';
 import { CommentServiceInterface } from '../comment/comment-service.interface.js';
 import CommentRdo from '../comment/rdo/comment.rdo.js';
@@ -113,32 +113,20 @@ export default class OfferController extends Controller {
     this.created(res, fillDTO(OfferRdo, offer));
   }
 
-  public async show({ params }: Request<ParamOfferId>, res: Response): Promise<void> {
+  public async show(
+    { params }: Request<core.ParamsDictionary | ParamsGetOffer>,
+    res: Response
+  ): Promise<void> {
     const { offerId } = params;
     const offer = await this.offerService.findById(offerId);
 
-    if (! offer) {
-      throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        `Offer with id ${offerId} not found.`,
-        'OfferController'
-      );
-    }
-
-    this.ok(res, offer);
+    this.ok(res, fillDTO(OfferRdo, offer));
   }
 
-  public async delete({ params }: Request<ParamOfferId>, res: Response): Promise<void> {
+  public async delete({ params }: Request<core.ParamsDictionary | ParamsGetOffer>, res: Response): Promise<void> {
     const { offerId } = params;
     const offer = await this.offerService.deleteById(offerId);
 
-    if (!offer) {
-      throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        `Offer with id ${offerId} not found.`,
-        'OfferControlle | delete'
-      );
-    }
     await this.commentService.deleteByOfferId(offerId);
 
     this.noContent(res, offer);
@@ -151,14 +139,6 @@ export default class OfferController extends Controller {
     const { offerId } = params;
     const updatedOffer = await this.offerService.updateById(offerId, body);
 
-    if(!updatedOffer) {
-      throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        'Offer not found',
-        'OfferController | update'
-      );
-    }
-
     this.ok(res, fillDTO(OfferRdo, updatedOffer));
   }
 
@@ -167,13 +147,6 @@ export default class OfferController extends Controller {
     res: Response
   ): Promise<void> {
     const { offerId } = params;
-    if(!await this.offerService.exists(offerId)) {
-      throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        'Offer not found',
-        'OfferController | getComments'
-      );
-    }
 
     const comments = await this.commentService.findByOfferId(offerId);
     this.ok(res, fillDTO(CommentRdo, comments));
@@ -189,5 +162,4 @@ export default class OfferController extends Controller {
 
     this.ok(res, fillDTO(OfferRdo, offers));
   }
-
 }
