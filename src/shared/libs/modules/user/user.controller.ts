@@ -20,17 +20,16 @@ import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middle
 import { UploadFileMiddleware } from '../../rest/middleware/upload-file.middleware.js';
 import { ValidateObjectIdMiddleware } from '../../rest/index.js';
 
- type BodyGetUser = {
-   userId: string
- }
+type BodyGetUser = {
+  userId: string
+}
 
-
- @injectable()
+@injectable()
 export default class UserController extends Controller {
   constructor(
-     @inject(AppComponent.LoggerInterface) protected readonly logger: LoggerInterface,
-     @inject(AppComponent.UserServiceInterface) protected readonly userService: UserServiceInterface,
-     @inject(AppComponent.ConfigInterface) protected readonly configService: ConfigInterface<RestSchema>,
+    @inject(AppComponent.LoggerInterface) protected readonly logger: LoggerInterface,
+    @inject(AppComponent.UserServiceInterface) protected readonly userService: UserServiceInterface,
+    @inject(AppComponent.ConfigInterface) protected readonly configService: ConfigInterface<RestSchema>,
   ) {
     super(logger);
 
