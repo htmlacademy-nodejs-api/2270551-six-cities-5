@@ -1,4 +1,4 @@
-import typegoose, { getModelForClass, defaultClasses, Ref, Severity } from '@typegoose/typegoose';
+import typegoose, { getModelForClass, defaultClasses, Ref, Severity} from '@typegoose/typegoose';
 import { Expose } from 'class-transformer';
 import { HouseType } from '../../../types/house-type.enum.js';
 import { City as TCity, CityName } from '../../../types/city.type.js';
@@ -9,7 +9,7 @@ import {
   MAX_OFFER_TITLE_LENGTH,
   MIN_OFFER_DESCRIPTION_LENGTH,
   MIN_OFFER_TITLE_LENGTH,
-  OFFER_PHOTOS_QUANTITY
+  //OFFER_PHOTOS_QUANTITY
 } from './offer.constant.js';
 import { UserEntity } from '../user/user.entity.js';
 import { IsLatLong, IsLongitude } from 'class-validator';
@@ -20,17 +20,20 @@ const { prop, modelOptions } = typegoose;
 export class Coords implements TCoords {
   @Expose()
   @prop({
+    options: {
+      allowMixed: Severity.ALLOW
+    },
     required: true
   })
   @IsLatLong({ message: 'Wront latitude' })
-    latitude!: number;
+  public latitude!: number;
 
   @Expose()
   @prop({
     required: true
   })
   @IsLongitude({ message: 'Wront longitude' })
-    longitude!: number;
+  public longitude!: number;
 }
 
 export class City implements TCity {
@@ -55,13 +58,12 @@ export interface OfferEntity extends defaultClasses.Base {}
 
 @modelOptions({
   schemaOptions: {
-    collection: 'offers',
+    collection: 'offers'
   },
   options: {
-    allowMixed: Severity.ALLOW,
-  },
+    allowMixed: Severity.ALLOW
+  }
 })
-
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
@@ -83,7 +85,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
     required: true
   })
-  public postDate!: Date;
+  public postDate!: string;
 
   @prop({
     required: true,
@@ -98,11 +100,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     type: [String],
-    required: true,
-    validate: {
-      validator: (photos: Array<string>) => photos.length === OFFER_PHOTOS_QUANTITY,
-      message: `photos quantity must be equal ${OFFER_PHOTOS_QUANTITY}!`
-    }
+    required: true
   })
   public photos!: string[];
 
@@ -121,16 +119,14 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   })
   public rating!: number;
 
-   @prop({
-     required: true,
-   })
+  @prop()
   public ratingCount = 0;
 
   @prop({
     required: true,
     enum: HouseType
   })
-   public houseType!: HouseType;
+  public houseType!: HouseType;
 
   @prop({
     required: true,
@@ -166,6 +162,9 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public commentCount!: number;
 
   @prop({
+    options: {
+      allowMixed: Severity.ALLOW
+    },
     required: true,
     _id: false
   })

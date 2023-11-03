@@ -17,11 +17,12 @@ import { StatusCodes } from 'http-status-codes';
 import HttpError from '../../rest/errors/http-error.js';
 import OfferRdo from '../offer/rdo/offer.rdo.js';
 import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middleware.js';
+import { UploadFileMiddleware } from '../../rest/middleware/upload-file.middleware.js';
+import { ValidateObjectIdMiddleware } from '../../rest/index.js';
 
- type BodyGetUser = {
-   userId: string
- }
-
+type BodyGetUser = {
+  userId: string
+}
 
 @injectable()
 export default class UserController extends Controller {
@@ -51,14 +52,23 @@ export default class UserController extends Controller {
       method: HttpMethod.Post,
       handler: this.getFavorites
     });
-
+    this.addRoute({
+      path: '/:userId/avatar',
+      method: HttpMethod.Post,
+      handler: this.uploadAvatar,
+      middlewares: [
+        new ValidateObjectIdMiddleware('userId'),
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'avatar'),
+      ]
+    });
   }
 
-  public async create (
+  public async create(
     { body }: Request<UnknownRecord, UnknownRecord, CreateUserDto>,
     res: Response,
   ): Promise<void> {
     const existsUser = await this.userService.findByEmail(body.mail);
+
     if (existsUser) {
       throw new HttpError(
         StatusCodes.CONFLICT,
@@ -68,7 +78,10 @@ export default class UserController extends Controller {
     }
 
     const result = await this.userService.create(body, this.configService.get('SALT'));
-    this.created(res,fillDTO(UserRdo, result));
+    this.created(
+      res,
+      fillDTO(UserRdo, result)
+    );
   }
 
   public async login(
@@ -103,5 +116,11 @@ export default class UserController extends Controller {
     const { favorites } = await user.populate('favorites');
 
     this.ok(res, fillDTO(OfferRdo, favorites));
+  }
+
+  public async uploadAvatar(req: Request, res: Response) {
+    this.created(res, {
+      filePath: req.file?.path
+    });
   }
 }

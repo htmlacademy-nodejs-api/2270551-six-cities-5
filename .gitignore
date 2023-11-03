@@ -5,8 +5,10 @@
 /dist/
 /docs/
 .idea/*
+/mongodb/
+/upload
 
 .DS_Store
 coverage
 *.log
-.env
+*.env

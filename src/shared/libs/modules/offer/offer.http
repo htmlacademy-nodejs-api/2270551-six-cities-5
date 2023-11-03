@@ -4,6 +4,51 @@ GET http://localhost:5000/offers/6529843dd72220bc28f11b8b HTTP/1.1
 
  ###
 
+ "title": "test two",
+    "description": "description2! description2. description2?",
+    "city": {
+      "name": "cologne",
+      "coords": {
+        "latitude": 50.938361,
+        "longitude": 6.959974,
+        "_id": "6542d182ab7a8609c59a2094"
+      }
+    },
+    "preview": "https://via.placeholder.com/260x200",
+    "photos": [
+      "https://via.placeholder.com/260x200?text=1",
+      "https://via.placeholder.com/260x200?text=2",
+      "https://via.placeholder.com/260x200?text=3",
+      "https://via.placeholder.com/260x200?text=4",
+      "https://via.placeholder.com/260x200?text=5",
+      "https://via.placeholder.com/260x200?text=6"
+    ],
+    "premium": true,
+    "favorite": true,
+    "rating": 5,
+    "houseType": "house",
+    "roomNumber": 8,
+    "guests": 1,
+    "price": 1000,
+    "features": [
+      "Air conditioning",
+      "Laptop friendly workspace",
+      "Washer"
+    ],
+    "user": {
+      "mail": "wer3@gg.qq",
+      "name": "Fedya Petya",
+      "avatar": "https://user.ru",
+      "type": "pro"
+    },
+    "commentCount": 10,
+    "coords": {
+      "latitude": 50.938361,
+      "longitude": 6.959974
+    },
+    "postDate": "2023-10-13T18:30:57.540Z"
+  },
+
 
  ## Удалить объявление по идентификатору
 
@@ -24,5 +69,7 @@ PATCH http://localhost:5000/offers/6529843dd72220bc28f11b8b HTTP/1.1
  }
 
  ###
+
+
 
 

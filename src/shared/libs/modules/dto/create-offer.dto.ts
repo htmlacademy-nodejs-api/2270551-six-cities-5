@@ -1,5 +1,4 @@
 import { CityName } from '../../../types/city.type.js';
-//import { Coords } from '../../../types/coords.type.js';
 import { Feature } from '../../../types/feature.enum.js';
 import { HouseType } from '../../../types/house-type.enum.js';
 import { IsDateString, IsString, MaxLength, MinLength, IsIn, IsArray, ArrayMinSize, ArrayMaxSize, IsBoolean, IsInt, Min, Max, IsEnum, IsMongoId, ValidateNested, IsUrl } from 'class-validator';
@@ -25,7 +24,7 @@ export default class CreateOfferDto {
   public description!: string;
 
   @IsDateString({}, {message: 'postDate must be valid ISO date'})
-  public postDate!: Date;
+  public postDate!: string;
 
   @IsIn(Object.keys(CITIES), { message: 'Wrong city name' })
   public cityName!: CityName;
