@@ -36,7 +36,7 @@ POST http://localhost:5000/users/647f00dc2e8f0f99aa764bdd/avatar HTTP/1.1
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
  ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="avatar"; filename="screen.png"
+Content-Disposition: form-data; name="avatar"; filename="Avatar-Greg.png"
 Content-Type: image/png
 
 < /Users/Desktop/Avatar-Greg.png
