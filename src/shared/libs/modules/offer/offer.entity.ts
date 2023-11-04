@@ -1,5 +1,5 @@
 import typegoose, { getModelForClass, defaultClasses, Ref, Severity} from '@typegoose/typegoose';
-import { Expose } from 'class-transformer';
+//import { Expose } from 'class-transformer';
 import { HouseType } from '../../../types/house-type.enum.js';
 import { City as TCity, CityName } from '../../../types/city.type.js';
 import { Coords as TCoords } from '../../../types/coords.type.js';
@@ -18,7 +18,7 @@ const { prop, modelOptions } = typegoose;
 
 
 export class Coords implements TCoords {
-  @Expose()
+
   @prop({
     options: {
       allowMixed: Severity.ALLOW
@@ -28,7 +28,7 @@ export class Coords implements TCoords {
   @IsLatLong({ message: 'Wront latitude' })
   public latitude!: number;
 
-  @Expose()
+
   @prop({
     required: true
   })
@@ -37,13 +37,13 @@ export class Coords implements TCoords {
 }
 
 export class City implements TCity {
-  @Expose()
+
   @prop({
     required: true
   })
   public name!: CityName;
 
-  @Expose()
+
   @prop({
     required: true
   })
