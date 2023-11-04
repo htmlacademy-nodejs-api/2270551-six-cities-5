@@ -23,6 +23,8 @@ export default class RestApplication {
     @inject(AppComponent.ExceptionFilterInterface) private readonly exceptionFilter: ExceptionFilterInterface,
     @inject(AppComponent.CommentController) private readonly commentController: ControllerInterface,
     @inject(AppComponent.AuthExceptionFilter) private readonly authExceptionFilter: ExceptionFilterInterface,
+    @inject(AppComponent.HttpExceptionFilter) private readonly httpExceptionFilter: ExceptionFilterInterface,
+    @inject(AppComponent.ValidationExceptionFilter) private readonly validationExceptionFilter: ExceptionFilterInterface,
   ) {
     this.expressApp = express();
   }
@@ -68,6 +70,9 @@ export default class RestApplication {
 
   private async _initExceptionFilters() {
     this.expressApp.use(this.authExceptionFilter.catch.bind(this.authExceptionFilter));
+    this.expressApp.use(this.validationExceptionFilter.catch.bind(this.validationExceptionFilter));
+    this.expressApp.use(this.httpExceptionFilter.catch.bind(this.httpExceptionFilter));
+    this.expressApp.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
     this.logger.info('Exception filters initialization');
 
     this.expressApp.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
@@ -86,7 +91,7 @@ export default class RestApplication {
     this.logger.info('Controller initialization complete');
   }
 
-  public async init() {
+  public async init(): Promise<void> {
     this.logger.info('Application initialization');
     //this.logger.warn('Application initialization');
     //this.logger.error('ehm', new Error('Some error'));

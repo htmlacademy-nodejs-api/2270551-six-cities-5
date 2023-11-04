@@ -10,6 +10,10 @@ import { AppComponent } from '../shared/types/component.enum.js';
 import RestApplication from './rest.application.js';
 import ExceptionFilter from '../shared/libs/rest/exception-filters/exception-filter.js';
 import { ExceptionFilterInterface } from '../shared/libs/rest/exception-filters/exception-filter.interface.js';
+import {AppExceptionFilter,
+  HttpExceptionFilter,
+  ValidationExceptionFilter
+} from '../shared/libs/rest/index.js';
 
 
 export function createRestApplicationContainer() {
@@ -30,10 +34,9 @@ export function createRestApplicationContainer() {
     .to(RestConfig)
     .inSingletonScope();
 
-  restApplicationContainer
-    .bind<DatabaseClient>(AppComponent.DatabaseClient)
-    .to(MongoDatabaseClient)
-    .inSingletonScope();
+  restApplicationContainer.bind<ExceptionFilter>(AppComponent.ExceptionFilter).to(AppExceptionFilter).inSingletonScope();
+  restApplicationContainer.bind<ExceptionFilter>(AppComponent.HttpExceptionFilter).to(HttpExceptionFilter).inSingletonScope();
+  restApplicationContainer.bind<ExceptionFilter>(AppComponent.ValidationExceptionFilter).to(ValidationExceptionFilter).inSingletonScope();
 
   restApplicationContainer
     .bind<ExceptionFilterInterface>(AppComponent.ExceptionFilterInterface)
