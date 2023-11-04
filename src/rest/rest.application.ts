@@ -12,6 +12,7 @@ import { ExceptionFilterInterface } from './../shared/libs/rest/exception-filter
 export default class RestApplication {
   private expressApp: Express;
 
+
   constructor(
     @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
     @inject(AppComponent.ConfigInterface) private readonly config: ConfigInterface<RestSchema>,
@@ -20,6 +21,7 @@ export default class RestApplication {
     @inject(AppComponent.OfferController) private readonly offerController: ControllerInterface,
     @inject(AppComponent.ExceptionFilterInterface) private readonly exceptionFilter: ExceptionFilterInterface,
     @inject(AppComponent.CommentController) private readonly commentController: ControllerInterface,
+    @inject(AppComponent.AuthExceptionFilter) private readonly authExceptionFilter: ExceptionFilterInterface,
   ) {
     this.expressApp = express();
   }
@@ -65,6 +67,7 @@ export default class RestApplication {
     this.expressApp.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
 
     this.logger.info('Exception filters completed');
+    this.expressApp.use(this.authExceptionFilter.catch.bind(this.authExceptionFilter));
   }
 
 
