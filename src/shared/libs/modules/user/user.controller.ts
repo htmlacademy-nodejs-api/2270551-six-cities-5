@@ -88,12 +88,12 @@ export default class UserController extends Controller {
     { body }: Request<UnknownRecord, UnknownRecord, LoginUserDto>,
     _res: Response,
   ): Promise<void> {
-    const existsUser = await this.userService.findByEmail(body.mail);
+    const existsUser = await this.userService.findByEmail(body.email);
 
     if (!existsUser) {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
-        `User with email ${body.mail} not found.`,
+        `User with email ${body.email} not found.`,
         'UserController | login',
       );
     }
