@@ -62,12 +62,13 @@ export default class RestApplication {
   }
 
   private async _initExceptionFilters() {
+    this.expressApp.use(this.authExceptionFilter.catch.bind(this.authExceptionFilter));
     this.logger.info('Exception filters initialization');
 
     this.expressApp.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
 
     this.logger.info('Exception filters completed');
-    this.expressApp.use(this.authExceptionFilter.catch.bind(this.authExceptionFilter));
+
   }
 
 

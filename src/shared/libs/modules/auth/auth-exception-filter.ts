@@ -1,12 +1,12 @@
-import {NextFunction, Request, Response} from 'express';
-import {inject, injectable} from 'inversify';
-import {LoggerInterface} from '../../logger/logger.interface.js';
-import ExceptionFilter from '../../../libs/rest/exception-filters/exception-filter.js';
-import {AppComponent} from './../../../../shared/types/component.enum.js';
-import {BaseAuthException} from './errors/index.js';
+import { inject, injectable } from 'inversify';
+import { NextFunction, Request, Response } from 'express';
+import { ExceptionFilterInterface } from '../../../libs/rest/index.js';
+import { AppComponent } from '../../../types/component.enum.js';
+import { LoggerInterface } from '../../logger/logger.interface.js';
+import { BaseAuthException } from './errors/index.js';
 
-@injectable()
-export class AuthExceptionFilter implements ExceptionFilter {
+ @injectable()
+export class AuthExceptionFilter implements ExceptionFilterInterface {
   constructor(
      @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface
   ) {
