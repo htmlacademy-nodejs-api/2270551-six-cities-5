@@ -19,6 +19,9 @@ import OfferRdo from '../offer/rdo/offer.rdo.js';
 import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middleware.js';
 import { UploadFileMiddleware } from '../../rest/middleware/upload-file.middleware.js';
 import { ValidateObjectIdMiddleware } from '../../rest/index.js';
+import {LoggedUserRdo} from './rdo/logged-user.rdo.js';
+import {AuthService} from '../auth/index.js';
+import { LoginUserRequest } from './login-user-request.type.js';
 
 type BodyGetUser = {
   userId: string
@@ -30,6 +33,7 @@ export default class UserController extends Controller {
     @inject(AppComponent.LoggerInterface) protected readonly logger: LoggerInterface,
     @inject(AppComponent.UserServiceInterface) protected readonly userService: UserServiceInterface,
     @inject(AppComponent.ConfigInterface) protected readonly configService: ConfigInterface<RestSchema>,
+    @inject(AppComponent.AuthService) protected readonly authService: AuthService,
   ) {
     super(logger);
 
@@ -85,18 +89,17 @@ export default class UserController extends Controller {
   }
 
   public async login(
-    { body }: Request<UnknownRecord, UnknownRecord, LoginUserDto>,
-    _res: Response,
-  ): Promise<void> {
-    const existsUser = await this.userService.findByEmail(body.email);
+    {body}: LoginUserRequest,
+    res: Response
+  ) {
+    const user = await this.authService.verify(body);
+    const token = await this.authService.authenticate(user);
+    const responseData = fillDTO(LoggedUserRdo, {
+      email: user.mail,
+      token
+    });
 
-    if (!existsUser) {
-      throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        `User with email ${body.email} not found.`,
-        'UserController | login',
-      );
-    }
+    this.ok(res, responseData);
   }
 
   public async getFavorites(
