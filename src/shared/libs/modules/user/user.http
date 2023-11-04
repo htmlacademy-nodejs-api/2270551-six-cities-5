@@ -14,32 +14,35 @@ Content-Type: application/json
 
 
 # Пользователи
+
+## Проверить токен пользователя
+GET http://localhost:5000/users/login HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxMzE3NDQsImV4cCI6MTY5OTMwNDU0NH0.lqhMn53sDQyos6s4zVRlgIuos1FLGkM_PqHL1qySXJk
+
+###
+
 ## Создать нового пользователя
 
 POST http://localhost:5000/users/register HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxMzE3NDQsImV4cCI6MTY5OTMwNDU0NH0.lqhMn53sDQyos6s4zVRlgIuos1FLGkM_PqHL1qySXJk
 Content-Type: application/json
 
 {
-  "mail": "tuger@mail.ru",
-  "avatar": "tiger.png",
-  "name": "Tiger Sibber",
+  "mail": "panda@mail.ru",
+  "avatar": "panda.png",
+  "name": "Panda Sibber",
   "password": "supersuper",
   "type": "pro"
 }
 
 ###
 
- ## Проверить токен пользователя
-GET http://localhost:4000/users/login HTTP/1.1
- Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuc0BvdmVybG9vay5uZXQiLCJpZCI6IjY0NzBiYzM4M2UzMGRiNjc5ZGZhYzJkMiIsImlhdCI6MTY4NTk3NTQ4MiwiZXhwIjoxNjg2MTQ4MjgyfQ.Gq2-B1egouAnMxmXlR2ElVT6wCa97PS6lxzVI8LnGvo
 
- ###
  ## Отправить изображение
-POST  http://localhost:5000/users/65466e89a5eae0c77cb6d109/avatar HTTP/1.1
-Authorization: Bearer <token>
+POST  http://localhost:5000/users/6546b25760df7db99a1db1b9/avatar HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxMzE3NDQsImV4cCI6MTY5OTMwNDU0NH0.lqhMn53sDQyos6s4zVRlgIuos1FLGkM_PqHL1qySXJk
 Content-Type: multipart/form-data; boundary=boundary
-
---boundary
+--boundary--
 Content-Disposition: form-data; name="avatar"; filename="avatar.png"
 Content-Type: image/jpeg
 
@@ -47,5 +50,10 @@ Content-Type: image/jpeg
 --boundary--
 
  ##
+
+
+
+
+
 
 
