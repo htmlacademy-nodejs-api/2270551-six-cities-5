@@ -1,14 +1,15 @@
 # Комментарии
 
 ## Создать комментарий
-POST http://localhost:5000/comments HTTP/1.1
+POST http://localhost:5000/comments/65298ce10b5eed4a3deb9b92 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxMzE3NDQsImV4cCI6MTY5OTMwNDU0NH0.lqhMn53sDQyos6s4zVRlgIuos1FLGkM_PqHL1qySXJk
 Content-Type: application/json
 
 {
-  "text": "This is best test comment",
+  "text": "Проверка коментария после авторизации",
   "rating": 5,
-  "offerId": "6529843dd72220bc28f11b8b",
-  "userId": "65284794c57e98df0792167e"
+  "offerId": "65298ce10b5eed4a3deb9b92"
+  //"userId": "65284794c57e98df0792167e"
 }
 
 ###

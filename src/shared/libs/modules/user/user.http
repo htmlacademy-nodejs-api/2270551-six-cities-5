@@ -1,29 +1,37 @@
 
-## Авторизовать пользователя
 
+##Авторизовать пользователя
 POST http://localhost:5000/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "mail": "siber@local.net",
-  "password": "8d10b83472573dc0fb1ae6eaa2b85eeaaf2130da6ce5516eb107b6245e5b2407"
-
+  "email": "tuger@mail.ru",
+  "password": "supersuper"
 }
 
 ###
 
 
+
 # Пользователи
+
+## Проверить токен пользователя
+GET http://localhost:5000/users/login HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxMzE3NDQsImV4cCI6MTY5OTMwNDU0NH0.lqhMn53sDQyos6s4zVRlgIuos1FLGkM_PqHL1qySXJk
+
+###
+
 ## Создать нового пользователя
 
 POST http://localhost:5000/users/register HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxMzE3NDQsImV4cCI6MTY5OTMwNDU0NH0.lqhMn53sDQyos6s4zVRlgIuos1FLGkM_PqHL1qySXJk
 Content-Type: application/json
 
 {
-  "mail": "sibr@local.net",
-  "avatar": "sibber.png",
-  "name": "Sohn Sibber",
-  "password": "super",
+  "mail": "panda@mail.ru",
+  "avatar": "panda.png",
+  "name": "Panda Sibber",
+  "password": "supersuper",
   "type": "pro"
 }
 
@@ -31,17 +39,21 @@ Content-Type: application/json
 
 
  ## Отправить изображение
-
-POST http://localhost:5000/users/647f00dc2e8f0f99aa764bdd/avatar HTTP/1.1
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-
- ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="avatar"; filename="Avatar-Greg.png"
-Content-Type: image/png
+POST  http://localhost:5000/users/6546b25760df7db99a1db1b9/avatar HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxMzE3NDQsImV4cCI6MTY5OTMwNDU0NH0.lqhMn53sDQyos6s4zVRlgIuos1FLGkM_PqHL1qySXJk
+Content-Type: multipart/form-data; boundary=boundary
+--boundary--
+Content-Disposition: form-data; name="avatar"; filename="avatar.png"
+Content-Type: image/jpeg
 
 < /Users/Desktop/Avatar-Greg.png
- ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+--boundary--
 
  ##
+
+
+
+
+
 
 

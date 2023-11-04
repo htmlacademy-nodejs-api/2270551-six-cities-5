@@ -7,10 +7,12 @@ import { getMongoURI } from '../shared/helpers/index.js';
 import express, { Express } from 'express';
 import { ControllerInterface } from './../shared/libs/rest/controller/controller.interface.js';
 import { ExceptionFilterInterface } from './../shared/libs/rest/exception-filters/exception-filter.interface.js';
+import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/parse-token.middleware.js';
 
 @injectable()
 export default class RestApplication {
   private expressApp: Express;
+
 
   constructor(
     @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
@@ -20,6 +22,7 @@ export default class RestApplication {
     @inject(AppComponent.OfferController) private readonly offerController: ControllerInterface,
     @inject(AppComponent.ExceptionFilterInterface) private readonly exceptionFilter: ExceptionFilterInterface,
     @inject(AppComponent.CommentController) private readonly commentController: ControllerInterface,
+    @inject(AppComponent.AuthExceptionFilter) private readonly authExceptionFilter: ExceptionFilterInterface,
   ) {
     this.expressApp = express();
   }
@@ -39,6 +42,8 @@ export default class RestApplication {
   }
 
   private async _initMiddleware() {
+    const authenticateMiddleware = new ParseTokenMiddleware(this.config.get('JWT_SECRET'));
+
     this.logger.info('Global middleware initialization…');
 
     this.expressApp.use(express.json());
@@ -46,6 +51,8 @@ export default class RestApplication {
       '/upload',
       express.static(this.config.get('UPLOAD_DIRECTORY'))
     );
+
+    this.expressApp.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
 
     this.logger.info('Global middleware initialization completed');
   }
@@ -60,11 +67,13 @@ export default class RestApplication {
   }
 
   private async _initExceptionFilters() {
+    this.expressApp.use(this.authExceptionFilter.catch.bind(this.authExceptionFilter));
     this.logger.info('Exception filters initialization');
 
     this.expressApp.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
 
     this.logger.info('Exception filters completed');
+
   }
 
 

@@ -1,41 +1,48 @@
 # Предложения
+
 ## Получить список предложений
 GET http://localhost:5000/offers HTTP/1.1
 Content-Type: application/json
 
 ###
 
-## Удалить объявление по идентификатору
+ # Получить объявление по идентификатору
+GET http://localhost:5000/offers/6529843dd72220bc28f11b8b HTTP/1.1
 
-DELETE http://localhost:5000/offers/65284794c57e98df07921680 HTTP/1.1
+ ###
+
+ ## Удалить объявление по идентификатору
+
+DELETE http://localhost:5000/offers/65466e89a5eae0c77cb6d109 HTTP/1.1
 
 ###
 
-
-
 ## Добавить новое предложение
+## Создать новое предложение
+
 POST http://localhost:5000/offers HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxMTU4MDgsImV4cCI6MTY5OTI4ODYwOH0.mrRvrZpfFQ_jRLvM1T5qsf9MHMnUxe9mXPIgxDpkY-w
 Content-Type: application/json
 
 {
-  "title": "tst",
-  "description": "test1testtesttesttest testtesttest testtesttest ",
-  "postDate": "2023-07-06T09:50:49.728Z",
+  "title": "t",
+  "description": "проверка авторизации",
+  "postDate": "2023-06-06T09:50:49.728Z",
   "city": {
-    "name": "Paris",
+    "name": "hamburg",
     "coords": {
-      "latitude": "48.85661",
-      "longitude": "2.351499"
+      "latitude": "1.12",
+      "longitude": "0.312"
     }
   },
-  "preview": "https://via1.placeholder.com/260x200",
+  "preview": "https://via.placeholder.com/260x200",
   "photos": [
-    "https://via1.placeholder.com/260x200?text=1",
-    "https://via1.placeholder.com/260x200?text=2",
-    "https://via1.placeholder.com/260x200?text=3",
-    "https://via1.placeholder.com/260x200?text=4",
-    "https://via1.placeholder.com/260x200?text=5",
-    "https://via1.placeholder.com/260x200?text=6"
+    "https://via.placeholder.com/260x200?text=1",
+    "https://via.placeholder.com/260x200?text=2",
+    "https://via.placeholder.com/260x200?text=3",
+    "https://via.placeholder.com/260x200?text=4",
+    "https://via.placeholder.com/260x200?text=5",
+    "https://via.placeholder.com/260x200?text=6"
   ],
   "premium": true,
   "favorite": true,
@@ -43,17 +50,125 @@ Content-Type: application/json
   "houseType": "house",
   "roomNumber": "3",
   "guests": "1",
-  "price": "1000",
+  "price": "12345",
   "features": [],
   "userId": "647f00dc2e8f0f99aa764bdd",
   "commentCount": "33",
   "coords": {
-    "latitude": "48.85661",
-    "longitude": "2.351499"
+    "latitude": "1.12",
+    "longitude": "0.312"
   }
 }
 
+
+
 ###
+
+
+
+## Добавить новое предложение
+POST http://localhost:5000/offers HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxMTU4MDgsImV4cCI6MTY5OTI4ODYwOH0.mrRvrZpfFQ_jRLvM1T5qsf9MHMnUxe9mXPIgxDpkY-w
+Content-Type: application/json
+
+{
+  "title": "5",
+    "description": "проверка после авторизации",
+    "postDate": "2023-09-18T18:05:00Z",
+    "city": {
+        "name": "paris",
+        "coords": {
+            "latitude": 48.85661,
+            "longitude": 2.351499,
+        },
+    },
+    "preview": "https://via.placeholder.com/260x200",
+    "photos": [
+        "https://via.placeholder.com/260x200?text=1",
+        "https://via.placeholder.com/260x200?text=2",
+        "https://via.placeholder.com/260x200?text=3",
+        "https://via.placeholder.com/260x200?text=4",
+        "https://via.placeholder.com/260x200?text=5",
+        "https://via.placeholder.com/260x200?text=6"
+    ],
+    "premium": true,
+    "favorite": true,
+    "rating": "4",
+    "houseType": "apartment",
+    "roomNumber": "3",
+    "guests": "5",
+    "price": "5000",
+    "features": [
+        "Breakfast",
+        "Air conditioning",
+        "Laptop friendly workspace",
+        "Baby seat",
+        "Washer",
+        "Towels",
+        "Fridge"
+    ],
+    "commentCount": "44",
+    "coords": {
+        "latitude": 48.85661,
+        "longitude": 2.351499,
+    },
+},
+
+###
+
+ ## Создать новое предложение
+
+POST http://localhost:5000/offers HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxMjUxODYsImV4cCI6MTY5OTI5Nzk4Nn0.cmuRsUepied5-JwUBPHrsW_3nM5WouS3cZDx7-ySGR8
+Content-Type: application/json
+
+{
+  "title": "проверка авторизации",
+  "description": "Оффер после авторизации",
+  "city": "paris",
+  "preview": "https://via.placeholder.com/260x200",
+  "photos": [
+    "https://via.placeholder.com/260x200?text=1",
+    "https://via.placeholder.com/260x200?text=2",
+    "https://via.placeholder.com/260x200?text=3",
+    "https://via.placeholder.com/260x200?text=4",
+    "https://via.placeholder.com/260x200?text=5",
+    "https://via.placeholder.com/260x200?text=6"
+  ],
+  "premium": true,
+  "favorite": true,
+  "rating": 4,
+  "houseType": "house",
+  "roomNumber": 5,
+  "guests": 1,
+  "price": 1000,
+  "features": [
+    "Air conditioning",
+    "Laptop friendly workspace",
+    "Washer"
+  ],
+  "userId": "65466f02a5eae0c77cb6d10c",
+  "user": {
+    "email": "tuger@mail.ru",
+    "name": "Greg Greg",
+    "avatar": "https://user.ru",
+    "type": "pro"
+  },
+
+  "commentCount": 12,
+  "coords": {
+     "latitude": 48.85661,
+        "longitude": 2.351499,
+        "_id": "65298b48d6b7d2346689009b"
+  },
+  "postDate": "2023-10-13T17:54:05.378Z",
+  "cityName": "Paris"
+}
+
+
+###
+
+
 
 # Список комментариев к объявлению
 
@@ -73,6 +188,12 @@ Content-Type: application/json
  }
 
  ###
+
+ ## Удалить объявление по идентификатору
+
+DELETE http://localhost:5000/offers/65466e89a5eae0c77cb6d109 HTTP/1.1
+
+###
 
 
 

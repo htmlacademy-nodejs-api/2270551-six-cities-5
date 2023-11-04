@@ -4,7 +4,7 @@ import { EMAIL_REGEX, MAX_USER_PASSWORD_LENGTH, MIN_USER_PASSWORD_LENGTH } from 
 export default class LoginUserDto {
   @IsEmail({}, { message: 'email must be valid address' })
   @Matches(EMAIL_REGEX, { message: 'wrong email' })
-  public mail!: string;
+  public email!: string;
 
   @IsString({message: 'password is required'})
   @Length(
