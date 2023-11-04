@@ -34,7 +34,7 @@ export default class CommentController extends Controller {
   }
 
   public async create(
-    { body }: Request<UnknownRecord, UnknownRecord, CreateCommentDto>,
+    { body, tokenPayload }: Request<UnknownRecord, UnknownRecord, CreateCommentDto>,
     res: Response
   ): Promise<void> {
     if(!await this.offerService.exists(body.offerId)) {
@@ -45,7 +45,7 @@ export default class CommentController extends Controller {
       );
     }
 
-    const newComment = await this.commentService.create(body);
+    const newComment = await this.commentService.create({ ...body, userId: tokenPayload.id });
     await this.offerService.incCommentCount(body.offerId);
 
     this.created(res, fillDTO(commentRdo, newComment));

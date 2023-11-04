@@ -13,7 +13,7 @@ export default class CreateCommentDto {
   @Max(MAX_COMMENT_RATING, { message: `Max rating is ${MAX_COMMENT_RATING}` })
   public rating!: number;
 
-  @IsMongoId({ message: 'User id is not valid' })
+
   public userId!: string;
 
   @IsMongoId({ message: 'Offer id is not valid' })
