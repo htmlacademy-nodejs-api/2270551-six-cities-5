@@ -1,7 +1,7 @@
 import { CityName } from '../../../types/city.type.js';
 import { Feature } from '../../../types/feature.enum.js';
 import { HouseType } from '../../../types/house-type.enum.js';
-import { IsDateString, IsString, MaxLength, MinLength, IsIn, IsArray, ArrayMinSize, ArrayMaxSize, IsBoolean, IsInt, Min, Max, IsEnum, IsMongoId, ValidateNested, IsUrl } from 'class-validator';
+import { IsDateString, IsString, MaxLength, MinLength, IsIn, IsArray, ArrayMinSize, ArrayMaxSize, IsBoolean, IsInt, Min, Max, IsEnum, ValidateNested, IsUrl } from 'class-validator';
 import { MAX_GUESTS_QUANTITY, MAX_OFFER_DESCRIPTION_LENGTH, MAX_OFFER_RATING, MAX_OFFER_TITLE_LENGTH, MAX_RENTAL_PRICE, MAX_ROOM_QUANTITY, MIN_GUESTS_QUANTITY, MIN_OFFER_DESCRIPTION_LENGTH, MIN_OFFER_RATING, MIN_OFFER_TITLE_LENGTH, MIN_RENTAL_PRICE, MIN_ROOM_QUANTITY, OFFER_PHOTOS_QUANTITY } from '../offer/offer.constant.js';
 import { CITIES } from '../../../../const.js';
 import { Coords } from '../offer/offer.entity.js';
