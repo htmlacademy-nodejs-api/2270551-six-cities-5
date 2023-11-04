@@ -12,3 +12,6 @@ export * from './errors/http-error.js';
 export * from './middleware/parse-token.middleware.js';
 export * from './middleware/private-route.middleware.js';
 export * from './middleware/document-exists.middleware.js';
+export * from '../rest/exception-filters/http-error.exception-filter.js';
+export * from '../rest/exception-filters/app.exception-filter.js';
+
