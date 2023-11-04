@@ -4,10 +4,12 @@ import { SignJWT } from 'jose';
 import { AuthService } from './auth-service.interface.js';
 import { LoggerInterface } from '../../../logger/logger.interface.js';
 import { AppComponent } from './../../../../../shared/types/component.enum.js';
-import { LoginUserDto, UserEntity, UserService } from '../../user/index.js';
+import { UserEntity} from '../../user/index.js';
+import LoginUserDto from '../../dto/login-user.dto.js';
+import UserService from '../../user/default-user.service.js';
 import { TokenPayload } from '../types/TokenPayload.js';
 import { ConfigInterface, RestSchema } from '../../../../libs/config/index.js';
-import { UserNotFoundException, UserPasswordIncorrectException } from './errors/index.js';
+import { UserNotFoundException, UserPasswordIncorrectException } from '../errors/index.js';
 import { JWT_ALGORITHM, JWT_EXPIRED } from './auth.constant.js';
 
 @injectable()
