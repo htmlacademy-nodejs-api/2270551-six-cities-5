@@ -69,9 +69,11 @@ export default class CreateOfferDto {
   @IsEnum(Feature, { each: true, message: 'Wrong feature name' })
   public features!: Feature[];
 
-  @IsMongoId({ message: 'userId must be correct mongo id' })
+
   public userId!: string;
 
   @ValidateNested()
   public coords!: Coords;
+
+  public authorId?: string;
 }
