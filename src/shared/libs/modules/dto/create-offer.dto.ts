@@ -69,7 +69,6 @@ export default class CreateOfferDto {
   @IsEnum(Feature, { each: true, message: 'Wrong feature name' })
   public features!: Feature[];
 
-
   public userId!: string;
 
   @ValidateNested()

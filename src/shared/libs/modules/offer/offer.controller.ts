@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 import { Controller } from '../../rest/controller/controller.abstract.js';
 import { LoggerInterface } from '../../logger/logger.interface.js';
 import { AppComponent } from '../../../types/component.enum.js';
-import { HttpMethod } from '../../rest/http-method.enum.js';
+//import { HttpMethod } from '../../rest/http-method.enum.js';
 import { fillDTO } from '../../../helpers/common.js';
 import OfferRdo from './rdo/offer.rdo.js';
 import CreateOfferDto from '../dto/create-offer.dto.js';
@@ -16,10 +16,17 @@ import { UnknownRecord } from '../../../types/unknown-record.type.js';
 import UpdateOfferDto from '../dto/update-offer.dto.js';
 import { CommentServiceInterface } from '../comment/comment-service.interface.js';
 import CommentRdo from '../comment/rdo/comment.rdo.js';
-import { ValidateObjectIdMiddleware } from '../../rest/middleware/validate-objectid.middleware.js';
-import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middleware.js';
+//import { ValidateObjectIdMiddleware } from '../../rest/middleware/validate-objectid.middleware.js';
+//import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middleware.js';
 import { CityName } from '../../../types/city.type.js';
-import {DocumentExistsMiddleware} from '../../rest/middleware/document-exists.middleware.js';
+import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middleware.js';
+//import {DocumentExistsMiddleware} from '../../rest/middleware/document-exists.middleware.js';
+import {
+  DocumentExistsMiddleware,
+  HttpMethod, PrivateRouteMiddleware,
+  ValidateObjectIdMiddleware,
+} from '../../../libs/rest/index.js';
+import {CreateOfferRequest} from './types/create-offer-request.type.js';
 
 
 type ParamsGetOffer = {
@@ -50,7 +57,7 @@ export default class OfferController extends Controller {
       path: '/',
       method: HttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateOfferDto),
+      middlewares: [ new PrivateRouteMiddleware(),
         new ValidateDtoMiddleware(CreateOfferDto)
       ]
     });
@@ -104,14 +111,15 @@ export default class OfferController extends Controller {
   }
 
   public async create(
-    { body }: Request<UnknownRecord, UnknownRecord, CreateOfferDto>,
+    {body, tokenPayload}: CreateOfferRequest,
     res: Response
-  ): Promise<void> {
-
-    const result = await this.offerService.create(body);
+  ) {
+    const result = await this.offerService.create({ ...body, userId: tokenPayload.id });
     const offer = await this.offerService.findById(result.id);
+
     this.created(res, fillDTO(OfferRdo, offer));
   }
+
 
   public async show(
     { params }: Request<core.ParamsDictionary | ParamsGetOffer>,
