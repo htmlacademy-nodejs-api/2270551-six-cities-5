@@ -64,6 +64,6 @@
     "nanoid": "5.0.2",
     "pino": "8.15.1",
     "reflect-metadata": "0.1.13",
-    "swagger-editor": "4.11.2"
+    "swagger-editor": "^2.10.5"
   }
 }
