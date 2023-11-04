@@ -5,7 +5,7 @@ import { AppComponent } from './../../../types/component.enum.js';
 import { LoggerInterface } from '../../logger/logger.interface.js';
 import { CommentServiceInterface } from './comment-service.interface.js';
 import { Controller } from '../../rest/controller/controller.abstract.js';
-import { HttpMethod } from './../../rest/http-method.enum.js';
+//import { HttpMethod } from './../../rest/http-method.enum.js';
 import { OfferServiceInterface } from '../offer/offer-service.interface.js';
 import { UnknownRecord } from '../../../types/unknown-record.type.js';
 import CreateCommentDto from '../dto/create-comment.dto.js';
@@ -13,6 +13,11 @@ import HttpError from '../../rest/errors/http-error.js';
 import { fillDTO } from '../../../helpers/common.js';
 import commentRdo from './rdo/comment.rdo.js';
 import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middleware.js';
+import {
+  HttpMethod,
+  PrivateRouteMiddleware,ValidateObjectIdMiddleware,
+  DocumentExistsMiddleware
+} from '../../../libs/rest/index.js';
 
 @injectable()
 export default class CommentController extends Controller {
@@ -29,7 +34,12 @@ export default class CommentController extends Controller {
       path: '/',
       method: HttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateCommentDto)]
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
+        new ValidateDtoMiddleware(CreateCommentDto)
+      ]
     });
   }
 
