@@ -22,6 +22,7 @@ import { ValidateObjectIdMiddleware } from '../../rest/index.js';
 import {LoggedUserRdo} from './rdo/logged-user.rdo.js';
 import {AuthService} from '../auth/index.js';
 import { LoginUserRequest } from './login-user-request.type.js';
+import { UploadUserAvatarRdo } from './rdo/upload-user-avatar.rdo.js';
 
 type BodyGetUser = {
   userId: string
@@ -122,10 +123,11 @@ export default class UserController extends Controller {
     this.ok(res, fillDTO(OfferRdo, favorites));
   }
 
-  public async uploadAvatar(req: Request, res: Response) {
-    this.created(res, {
-      filePath: req.file?.path
-    });
+  public async uploadAvatar({ params, file }: Request, res: Response) {
+    const { userId } = params;
+    const uploadFile = { avatarUrl: file?.filename };
+    await this.userService.updateById(userId, uploadFile);
+    this.created(res, fillDTO(UploadUserAvatarRdo, { filepath: uploadFile.avatarUrl }));
   }
 
   public async checkAuthenticate({ tokenPayload: { email }}: Request, res: Response) {
