@@ -4,15 +4,16 @@ import {inject, injectable} from 'inversify';
 import {createErrorObject} from '../../../helpers/index.js';
 import {AppComponent} from '../../../types/index.js';
 import {LoggerInterface} from '../../logger/index.js';
-import {ValidationError} from '../errors/index.js';
+import {ValidationError} from '../errors/validation-error.js';
 import {ApplicationErrors} from '../types/index.js';
+import { ExceptionFilterInterface } from './exception-filter.interface.js';
 
 @injectable()
-export class ValidationExceptionFilter {
+export class ValidationExceptionFilter implements ExceptionFilterInterface {
   constructor(
-    @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
+    @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface
   ) {
-    this.logger.info('Init ValidationExceptionFilter');
+    this.logger.info('Register ValidationExceptionFilter');
   }
 
   public catch(error: unknown, _req: Request, res: Response, next: NextFunction) {
@@ -20,7 +21,7 @@ export class ValidationExceptionFilter {
       return next(error);
     }
 
-    this.logger.error(error, `[ValidationException]: ${error.message}`);
+    this.logger.error(`[ValidationException]: ${error.message}`, error);
 
     error.details.forEach(
       (errorField) => this.logger.warn(`[${errorField.property}] - ${errorField.messages}`)

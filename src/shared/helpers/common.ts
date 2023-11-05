@@ -2,7 +2,8 @@
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import {ValidationError} from 'class-validator';
 
-import {ApplicationErrors, ValidationErrorField} from '../libs/rest/index.js';
+import {ApplicationErrors} from '../libs/rest/types/application-errors.enum.js';
+import {ValidationErrorField} from '../libs/rest/types/validation-error-field.type.js';
 
 export function generateRandomValue(min:number, max: number, numAfterDigit = 0) {
   return +((Math.random() * (max - min)) + min).toFixed(numAfterDigit);

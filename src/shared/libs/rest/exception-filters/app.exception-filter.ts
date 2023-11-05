@@ -17,8 +17,8 @@ export class AppExceptionFilter implements ExceptionFilterInterface {
     this.logger.info('Init AppExceptionFilter');
   }
 
-  public catch(error: Error, _req: Request, res: Response, _next: NextFunction) {
-    this.logger.error(error, error.message);
+  public catch(error: Error, _req: Request, res: Response, _next: NextFunction):void {
+    this.logger.error(error.message, error);
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json(createErrorObject(ApplicationErrors.ServiceError, error.message));
