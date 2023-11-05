@@ -1,23 +1,26 @@
 import { inject, injectable } from 'inversify';
-import { Request, Response } from 'express';
-import { StatusCodes } from 'http-status-codes';
+import { Response } from 'express';
+//import { StatusCodes } from 'http-status-codes';
 import { AppComponent } from './../../../types/component.enum.js';
 import { LoggerInterface } from '../../logger/logger.interface.js';
 import { CommentServiceInterface } from './comment-service.interface.js';
 import { Controller } from '../../rest/controller/controller.abstract.js';
 //import { HttpMethod } from './../../rest/http-method.enum.js';
 import { OfferServiceInterface } from '../offer/offer-service.interface.js';
-import { UnknownRecord } from '../../../types/unknown-record.type.js';
+//import { UnknownRecord } from '../../../types/unknown-record.type.js';
 import CreateCommentDto from '../dto/create-comment.dto.js';
-import HttpError from '../../rest/errors/http-error.js';
+//import HttpError from '../../rest/errors/http-error.js';
 import { fillDTO } from '../../../helpers/common.js';
-import commentRdo from './rdo/comment.rdo.js';
+//import commentRdo from './rdo/comment.rdo.js';
 import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middleware.js';
 import {
   HttpMethod,
   PrivateRouteMiddleware,ValidateObjectIdMiddleware,
   DocumentExistsMiddleware
 } from '../../../libs/rest/index.js';
+import {CreateCommentRequest} from '../../../types/create-comment-request.type.js';
+import CommentRdo from './rdo/comment.rdo.js';
+
 
 @injectable()
 export default class CommentController extends Controller {
@@ -31,7 +34,7 @@ export default class CommentController extends Controller {
     this.logger.info('Register routes for CommentController');
 
     this.addRoute({
-      path: '/',
+      path: '/:offerId',
       method: HttpMethod.Post,
       handler: this.create,
       middlewares: [
@@ -44,20 +47,12 @@ export default class CommentController extends Controller {
   }
 
   public async create(
-    { body, tokenPayload }: Request<UnknownRecord, UnknownRecord, CreateCommentDto>,
+    {body, tokenPayload}: CreateCommentRequest,
     res: Response
   ): Promise<void> {
-    if(!await this.offerService.exists(body.offerId)) {
-      throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        `Offer with id ${body.offerId} not found`,
-        'CommentController | create'
-      );
-    }
-
-    const newComment = await this.commentService.create({ ...body, userId: tokenPayload.id });
+    const comment = await this.commentService.create({...body, userId: tokenPayload.id});
     await this.offerService.incCommentCount(body.offerId);
+    this.created(res, fillDTO(CommentRdo, comment));
 
-    this.created(res, fillDTO(commentRdo, newComment));
   }
 }
