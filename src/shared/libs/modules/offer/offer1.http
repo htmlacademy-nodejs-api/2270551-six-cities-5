@@ -21,11 +21,11 @@ DELETE http://localhost:5000/offers/65466e89a5eae0c77cb6d109 HTTP/1.1
 ## Создать новое предложение
 
 POST http://localhost:5000/offers HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxMTU4MDgsImV4cCI6MTY5OTI4ODYwOH0.mrRvrZpfFQ_jRLvM1T5qsf9MHMnUxe9mXPIgxDpkY-w
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxMzE3NDQsImV4cCI6MTY5OTMwNDU0NH0.lqhMn53sDQyos6s4zVRlgIuos1FLGkM_PqHL1qySXJk
 Content-Type: application/json
 
 {
-  "title": "t",
+  "title": "ttttt",
   "description": "проверка авторизации",
   "postDate": "2023-06-06T09:50:49.728Z",
   "city": {
@@ -123,6 +123,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuY
 Content-Type: application/json
 
 {
+  "id": "65469809ef1d73d6157b1d23",
   "title": "проверка авторизации",
   "description": "Оффер после авторизации",
   "city": "paris",

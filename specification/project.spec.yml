@@ -469,7 +469,7 @@ components:
           type: string
           example: Keks
 
-        avatar:
+        avatarUrl:
           type: string
           example: https://via.placeholder.com/20x20
 

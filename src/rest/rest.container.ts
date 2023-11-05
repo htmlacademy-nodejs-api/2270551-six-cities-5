@@ -14,6 +14,7 @@ import {AppExceptionFilter,
   HttpExceptionFilter,
 } from '../shared/libs/rest/index.js';
 import { ValidationExceptionFilter } from './../shared/libs/rest/exception-filters/validation.exception-filter.js';
+import { PathTransformer } from '../shared/libs/rest/transform/path-transformer.js';
 
 
 export function createRestApplicationContainer() {
@@ -39,6 +40,7 @@ export function createRestApplicationContainer() {
   restApplicationContainer.bind<ExceptionFilterInterface>(AppComponent.ExceptionFilterInterface).to(AppExceptionFilter).inSingletonScope();
   restApplicationContainer.bind<ExceptionFilterInterface>(AppComponent.HttpExceptionFilter).to(HttpExceptionFilter).inSingletonScope();
   restApplicationContainer.bind<ExceptionFilterInterface>(AppComponent.ValidationExceptionFilter).to(ValidationExceptionFilter).inSingletonScope();
+  restApplicationContainer.bind<PathTransformer>(AppComponent.PathTransformer).to(PathTransformer).inSingletonScope();
 
   //restApplicationContainer
   //  .bind<ExceptionFilterInterface>(AppComponent.ExceptionFilterInterface)
