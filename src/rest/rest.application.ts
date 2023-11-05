@@ -10,6 +10,7 @@ import { ExceptionFilterInterface } from './../shared/libs/rest/exception-filter
 import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/parse-token.middleware.js';
 import { getFullServerPath } from '../common.js';
 import { STATIC_FILES_ROUTE, STATIC_UPLOAD_ROUTE } from './rest.constant.js';
+import cors from 'cors';
 
 @injectable()
 export default class RestApplication {
@@ -61,6 +62,7 @@ export default class RestApplication {
     );
 
     this.expressApp.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
+    this.expressApp.use(cors());
 
     this.logger.info('Global middleware initialization completed');
   }
