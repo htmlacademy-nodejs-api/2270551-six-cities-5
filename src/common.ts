@@ -7,3 +7,8 @@ export const steamCommonOptions: {
   highWaterMark: CHUNK_SIZE,
   encoding: 'utf-8',
 };
+
+export function getFullServerPath(host: string, port: number) {
+  return `http://${host}:${port}`;
+}
+

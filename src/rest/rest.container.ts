@@ -8,8 +8,13 @@ import { LoggerInterface } from '../shared/libs/logger/logger.interface.js';
 import PinoLogger from '../shared/libs/logger/pino.logger.js';
 import { AppComponent } from '../shared/types/component.enum.js';
 import RestApplication from './rest.application.js';
-import ExceptionFilter from '../shared/libs/rest/exception-filters/exception-filter.js';
+//import ExceptionFilter from '../shared/libs/rest/exception-filters/exception-filter77.js';
 import { ExceptionFilterInterface } from '../shared/libs/rest/exception-filters/exception-filter.interface.js';
+import {AppExceptionFilter,
+  HttpExceptionFilter,
+} from '../shared/libs/rest/index.js';
+import { ValidationExceptionFilter } from './../shared/libs/rest/exception-filters/validation.exception-filter.js';
+import { PathTransformer } from '../shared/libs/rest/transform/path-transformer.js';
 
 
 export function createRestApplicationContainer() {
@@ -30,15 +35,17 @@ export function createRestApplicationContainer() {
     .to(RestConfig)
     .inSingletonScope();
 
-  restApplicationContainer
-    .bind<DatabaseClient>(AppComponent.DatabaseClient)
-    .to(MongoDatabaseClient)
-    .inSingletonScope();
+  restApplicationContainer.bind<DatabaseClient>(AppComponent.DatabaseClient).to(MongoDatabaseClient).inSingletonScope();
 
-  restApplicationContainer
-    .bind<ExceptionFilterInterface>(AppComponent.ExceptionFilterInterface)
-    .to(ExceptionFilter)
-    .inSingletonScope();
+  restApplicationContainer.bind<ExceptionFilterInterface>(AppComponent.ExceptionFilterInterface).to(AppExceptionFilter).inSingletonScope();
+  restApplicationContainer.bind<ExceptionFilterInterface>(AppComponent.HttpExceptionFilter).to(HttpExceptionFilter).inSingletonScope();
+  restApplicationContainer.bind<ExceptionFilterInterface>(AppComponent.ValidationExceptionFilter).to(ValidationExceptionFilter).inSingletonScope();
+  restApplicationContainer.bind<PathTransformer>(AppComponent.PathTransformer).to(PathTransformer).inSingletonScope();
+
+  //restApplicationContainer
+  //  .bind<ExceptionFilterInterface>(AppComponent.ExceptionFilterInterface)
+  //  .to(ExceptionFilter)
+  //  .inSingletonScope();
 
 
   return restApplicationContainer;

@@ -22,7 +22,7 @@ export function createOffer(offerData: string): Offer {
     guests,
     price,
     features,
-    avatar,
+    avatarUrl,
     userName,
     mail,
     userType,
@@ -34,7 +34,7 @@ export function createOffer(offerData: string): Offer {
   const author: User = {
     name: userName,
     mail,
-    avatar,
+    avatarUrl,
     type: (userType as UserType)
   };
 

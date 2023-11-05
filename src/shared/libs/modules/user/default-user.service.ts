@@ -6,6 +6,7 @@ import { UserEntity } from './user.entity.js';
 import CreateUserDto from '../dto/create-user.dto.js';
 import { UserServiceInterface } from './user-service.interface.js';
 import UpdateUserDto from '../dto/update-user.dto.js';
+import { DEFAULT_AVATAR_URL } from './user.constant.js';
 
 @injectable()
 export default class UserService implements UserServiceInterface {
@@ -15,7 +16,7 @@ export default class UserService implements UserServiceInterface {
   ) {}
 
   public async create(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
-    const user = new UserEntity(dto);
+    const user = new UserEntity({ ...dto, avatarUrl: DEFAULT_AVATAR_URL });
     user.setPassword(dto.password, salt);
 
     const result = await this.userModel.create(user);

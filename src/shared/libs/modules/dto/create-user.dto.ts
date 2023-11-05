@@ -1,4 +1,4 @@
-import { IsEmail, IsString, IsUrl, Length, MaxLength, MinLength, IsEnum, Matches } from 'class-validator';
+import { IsEmail, IsString, Length, MaxLength, MinLength, IsEnum, Matches } from 'class-validator';
 import { UserType } from '../../../types/user-type.enum.js';
 import { EMAIL_REGEX, MAX_USER_NAME_LENGTH, MAX_USER_PASSWORD_LENGTH, MIN_USER_NAME_LENGTH,MIN_USER_PASSWORD_LENGTH } from '../user/user.constant.js';
 
@@ -12,9 +12,9 @@ export default class CreateUserDto {
   @Matches(EMAIL_REGEX, { message: 'wrong email' })
   public mail!: string;
 
-  @IsString({message: 'avatar path is required'})
-  @IsUrl(undefined, { message: 'avatar URL is not valid.' })
-  public avatar?: string;
+  //@IsString({message: 'avatar path is required'})
+  //@IsUrl(undefined, { message: 'avatar URL is not valid.' })
+  //public avatar?: string;
 
   @IsString({message: 'password is required'})
   @Length(
