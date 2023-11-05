@@ -8,7 +8,7 @@ export default class UserRdo {
   public name!: string;
 
   @Expose()
-  public avatar!: string;
+  public avatarUrl?: string;
 
   @Expose()
   public type!: string;
