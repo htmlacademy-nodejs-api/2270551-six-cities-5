@@ -28,8 +28,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuY
 Content-Type: application/json
 
 {
-  "mail": "enot8@mail.ru",
-  "name": "Enot8 Sibber",
+  "mail": "enot9@mail.ru",
+  "name": "Enot9 Sibber",
   "password": "supersuper",
   "type": "pro"
 }
