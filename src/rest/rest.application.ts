@@ -9,6 +9,7 @@ import { ControllerInterface } from './../shared/libs/rest/controller/controller
 import { ExceptionFilterInterface } from './../shared/libs/rest/exception-filters/exception-filter.interface.js';
 import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/parse-token.middleware.js';
 import { getFullServerPath } from '../common.js';
+import { STATIC_FILES_ROUTE, STATIC_UPLOAD_ROUTE } from './rest.constant.js';
 
 @injectable()
 export default class RestApplication {
@@ -51,11 +52,11 @@ export default class RestApplication {
 
     this.expressApp.use(express.json());
     this.expressApp.use(
-      '/upload',
+      STATIC_UPLOAD_ROUTE,
       express.static(this.config.get('UPLOAD_DIRECTORY'))
     );
     this.expressApp.use(
-      '/static',
+      STATIC_FILES_ROUTE,
       express.static(this.config.get('STATIC_DIRECTORY_PATH'))
     );
 
