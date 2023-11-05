@@ -24,13 +24,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuY
 ## Создать нового пользователя
 
 POST http://localhost:5000/users/register HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxMzE3NDQsImV4cCI6MTY5OTMwNDU0NH0.lqhMn53sDQyos6s4zVRlgIuos1FLGkM_PqHL1qySXJk
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuYW1lIjoiVGlnZXIgU2liYmVyIiwiaWQiOiI2NTQ2NmYwMmE1ZWFlMGM3N2NiNmQxMGMiLCJpYXQiOjE2OTkxNzU5NzUsImV4cCI6MTY5OTM0ODc3NX0.bPMUA9yi4yhT1RSYWfSteo2ZJl-o0B0vMZabxAvCAYs
 Content-Type: application/json
 
 {
-  "mail": "panda@mail.ru",
-  "avatar": "panda.png",
-  "name": "Panda Sibber",
+  "mail": "enot1@mail.ru",
+  "avatar": "enot1.png",
+  "name": "Enot1 Sibber",
   "password": "supersuper",
   "type": "pro"
 }
