@@ -74,5 +74,4 @@ export default class CreateOfferDto {
   @ValidateNested()
   public coords!: Coords;
 
-  //public authorId?: string;
 }

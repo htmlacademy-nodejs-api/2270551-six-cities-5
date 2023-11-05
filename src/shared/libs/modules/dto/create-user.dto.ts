@@ -12,10 +12,6 @@ export default class CreateUserDto {
   @Matches(EMAIL_REGEX, { message: 'wrong email' })
   public mail!: string;
 
-  //@IsString({message: 'avatar path is required'})
-  //@IsUrl(undefined, { message: 'avatar URL is not valid.' })
-  //public avatar?: string;
-
   @IsString({message: 'password is required'})
   @Length(
     MIN_USER_PASSWORD_LENGTH,
