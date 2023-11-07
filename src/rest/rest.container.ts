@@ -8,7 +8,6 @@ import { LoggerInterface } from '../shared/libs/logger/logger.interface.js';
 import PinoLogger from '../shared/libs/logger/pino.logger.js';
 import { AppComponent } from '../shared/types/component.enum.js';
 import RestApplication from './rest.application.js';
-//import ExceptionFilter from '../shared/libs/rest/exception-filters/exception-filter77.js';
 import { ExceptionFilterInterface } from '../shared/libs/rest/exception-filters/exception-filter.interface.js';
 import {AppExceptionFilter,
   HttpExceptionFilter,
@@ -41,12 +40,6 @@ export function createRestApplicationContainer() {
   restApplicationContainer.bind<ExceptionFilterInterface>(AppComponent.HttpExceptionFilter).to(HttpExceptionFilter).inSingletonScope();
   restApplicationContainer.bind<ExceptionFilterInterface>(AppComponent.ValidationExceptionFilter).to(ValidationExceptionFilter).inSingletonScope();
   restApplicationContainer.bind<PathTransformer>(AppComponent.PathTransformer).to(PathTransformer).inSingletonScope();
-
-  //restApplicationContainer
-  //  .bind<ExceptionFilterInterface>(AppComponent.ExceptionFilterInterface)
-  //  .to(ExceptionFilter)
-  //  .inSingletonScope();
-
 
   return restApplicationContainer;
 }

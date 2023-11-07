@@ -101,9 +101,6 @@ export default class RestApplication {
 
   public async init(): Promise<void> {
     this.logger.info('Application initialization');
-    //this.logger.warn('Application initialization');
-    //this.logger.error('ehm', new Error('Some error'));
-    //this.logger.debug('This is debug');
     this.logger.info(`Get value from env $PORT: ${this.config.get('PORT')}`);
 
     this.logger.info('Init app-level middleware');

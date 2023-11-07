@@ -1,5 +1,4 @@
 import typegoose, { getModelForClass, defaultClasses, Ref, Severity} from '@typegoose/typegoose';
-//import { Expose } from 'class-transformer';
 import { HouseType } from '../../../types/house-type.enum.js';
 import { City as TCity, CityName } from '../../../types/city.type.js';
 import { Coords as TCoords } from '../../../types/coords.type.js';
@@ -9,7 +8,6 @@ import {
   MAX_OFFER_TITLE_LENGTH,
   MIN_OFFER_DESCRIPTION_LENGTH,
   MIN_OFFER_TITLE_LENGTH,
-  //OFFER_PHOTOS_QUANTITY
 } from './offer.constant.js';
 import { UserEntity } from '../user/user.entity.js';
 import { IsLatLong, IsLongitude } from 'class-validator';

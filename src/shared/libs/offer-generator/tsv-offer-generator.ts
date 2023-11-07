@@ -27,7 +27,6 @@ export default class TSVOfferGenerator implements OfferGeneratorInterface {
   public generate(): string {
     const title = getRandomItem<string>(this.mockData.titles);
     const description = getRandomItem<string>(this.mockData.descriptions);
-    //const createdDate = getRandomItem<string>(this.mockData.createdDates);
     const city = getRandomItem<string>(this.mockData.citys);
     const preview = getRandomItem<string>(this.mockData.previews);
     const photos = getRandomItems<string>(this.mockData.photos).join(';');

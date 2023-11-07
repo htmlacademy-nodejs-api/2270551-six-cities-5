@@ -2,7 +2,6 @@ import { ClassConstructor, plainToClass } from 'class-transformer';
 import { MiddlewareInterface } from './middleware.interface.js';
 import { Request, Response, NextFunction } from 'express';
 import { validate } from 'class-validator';
-//import { StatusCodes } from 'http-status-codes';
 import { ValidationError } from '../errors/index.js';
 import { reduceValidationErrors } from '../../../helpers/index.js';
 
