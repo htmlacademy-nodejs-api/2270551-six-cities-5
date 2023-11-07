@@ -6,6 +6,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InR1Z2VyQG1haWwucnUiLCJuY
 Content-Type: application/json
 
 {
+  "_id": "ObjectId()",
   "text": "Проверка коментария после авторизации",
   "rating": "5",
   "offerId": "65298b47d6b7d2346689008d"
