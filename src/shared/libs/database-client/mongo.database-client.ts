@@ -6,8 +6,6 @@ import { AppComponent } from '../../types/index.js';
 import { LoggerInterface } from '../logger/index.js';
 import {ConnectionOptions} from './db.const.js';
 
-//const RETRY_COUNT = 5;
-//const RETRY_TIMEOUT = 1000;
 
  @injectable()
 export default class MongoDatabaseClient implements DatabaseClient {
