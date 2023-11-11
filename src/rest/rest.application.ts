@@ -72,8 +72,6 @@ export default class RestApplication {
 
     const port = this.config.get('PORT');
     this.expressApp.listen(port);
-
-    //this.logger.info(`🚀Server started on http://localhost:${this.config.get('PORT')}`);
   }
 
   private async _initExceptionFilters() {
