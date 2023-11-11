@@ -1,6 +1,6 @@
 import typegoose, { getModelForClass, defaultClasses, Ref, Severity} from '@typegoose/typegoose';
 import { HouseType } from '../../../types/house-type.enum.js';
-import { City as TCity, CityName } from '../../../types/city.type.js';
+import { TCity } from '../../../types/city.type.js';
 import { Coords as TCoords } from '../../../types/coords.type.js';
 import { Feature } from '../../../types/feature.enum.js';
 import {
@@ -11,6 +11,7 @@ import {
 } from './offer.constant.js';
 import { UserEntity } from '../user/user.entity.js';
 import { IsLatLong, IsLongitude } from 'class-validator';
+//import { CityName } from '../../../types/city.enum.js';
 
 const { prop, modelOptions } = typegoose;
 
@@ -32,23 +33,6 @@ export class Coords implements TCoords {
   })
   @IsLongitude({ message: 'Wront longitude' })
   public longitude!: number;
-}
-
-export class City implements TCity {
-
-  @prop({
-    required: true
-  })
-  public name!: CityName;
-
-
-  @prop({
-    required: true
-  })
-  public coords!: {
-    latitude: number;
-    longitude: number
-  };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
@@ -80,16 +64,10 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   })
   public description!: string;
 
-  @prop({
-    required: true
-  })
-  public postDate!: string;
 
-  @prop({
-    required: true,
-    _id: false
-  })
-  public city!: City;
+  @prop()
+  public city!: TCity;
+
 
   @prop({
     required: true
@@ -167,6 +145,11 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     _id: false
   })
   public coords!: Coords;
+
+  @prop({
+    required: true
+  })
+  public postDate!: string;
 }
 
 
