@@ -1,6 +1,5 @@
 import { inject, injectable } from 'inversify';
 import { Response } from 'express';
-//import { StatusCodes } from 'http-status-codes';
 import { AppComponent } from './../../../types/component.enum.js';
 import { LoggerInterface } from '../../logger/logger.interface.js';
 import { CommentServiceInterface } from './comment-service.interface.js';
