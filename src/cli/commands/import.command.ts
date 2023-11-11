@@ -47,7 +47,7 @@ export default class ImportCommand implements CliCommandInterface {
     await this.offerService.create({
       ...offer,
       userId: user.id,
-      city: offer.city,
+      city: offer.city
     });
   }
 
