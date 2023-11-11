@@ -29,13 +29,6 @@ Content-Type: application/json
     "Laptop friendly workspace",
     "Washer"
   ],
-  //"user": {
-  //  "mail": "tuger@mail.ru",
-  //  "name": "Greg Greg",
-  //  "avatar": "https://user.ru",
-  //  "type": "pro"
-  //},
-  //"commentCount": 12,
   "coords": {},
   "postDate": "2023-10-13T17:54:05.378Z"
 }
@@ -100,7 +93,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImVub3QxMUBtYWlsLnJ1Iiwib
 Content-Type: application/json
 
 {
- 
+
   "title": "проверка авторизации",
   "description": "Оффер после авторизации",
   "city": "Paris",
@@ -154,7 +147,7 @@ DELETE http://localhost:5000/offers/6528507c43cdb112248edb68 HTTP/1.1
 
  ###
 
- 
+
 
 
 
