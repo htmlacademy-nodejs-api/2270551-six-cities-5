@@ -4,7 +4,6 @@ import { CityName } from '../types/city.type.js';
 import { HouseType } from '../types/house-type.enum.js';
 import { Feature } from '../types/feature.enum.js';
 import { UserType } from '../types/user-type.enum.js';
-//import { CITIES } from '../../const.js';
 
 export function createOffer(offerData: string): Offer {
   const [
