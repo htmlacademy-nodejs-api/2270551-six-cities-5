@@ -5,4 +5,3 @@ export enum HouseType {
   hotel = 'hotel'
 }
 
-//export type HouseType = 'apartment' | 'house' | 'room' | 'hotel';

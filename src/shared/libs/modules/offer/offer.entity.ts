@@ -11,7 +11,6 @@ import {
 } from './offer.constant.js';
 import { UserEntity } from '../user/user.entity.js';
 import { IsLatLong, IsLongitude } from 'class-validator';
-//import { CityName } from '../../../types/city.enum.js';
 
 const { prop, modelOptions } = typegoose;
 

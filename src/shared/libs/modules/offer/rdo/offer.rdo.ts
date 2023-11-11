@@ -55,8 +55,8 @@ export default class OfferRdo {
   @Type(() => UserRdo)
   public user!: UserRdo;
 
-  //@Expose()
-  //public commentCount!: number;
+  @Expose()
+  public commentCount!: number;
 
   @Expose()
   @Type(() => Coords)
