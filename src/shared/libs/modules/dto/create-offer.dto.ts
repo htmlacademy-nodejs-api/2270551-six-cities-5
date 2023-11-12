@@ -24,10 +24,10 @@ export default class CreateOfferDto {
   public description!: string;
 
   @IsDateString({}, {message: 'postDate must be valid ISO date'})
-  public postDate!: string;
+  public postDate!: Date;
 
   @IsIn(Object.keys(CITIES), { message: 'Wrong city name' })
-  public cityName!: CityName;
+  public city?: CityName;
 
   @IsString({ message: 'preview is required' })
   @IsUrl(undefined, { message: 'preview URL is not valid.' })
@@ -41,6 +41,9 @@ export default class CreateOfferDto {
 
   @IsBoolean({ message: 'premium is required' })
   public premium!: boolean;
+
+  @IsBoolean({message: 'isFavorite must be a boolean'})
+  public favorite: boolean;
 
   @IsInt({ message: 'Rating must be an integer' })
   @Min(MIN_OFFER_RATING, { message: `Min rating is ${MIN_OFFER_RATING}` })
@@ -74,5 +77,4 @@ export default class CreateOfferDto {
   @ValidateNested()
   public coords!: Coords;
 
-  //public authorId?: string;
 }

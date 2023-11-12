@@ -1,9 +1,9 @@
 import { HouseType } from '../../../../types/house-type.enum.js';
 import { Exclude, Expose, Type } from 'class-transformer';
-//import { City } from '../../../../types/city.type.js';
 import { Feature } from '../../../../types/feature.enum.js';
 import UserRdo from '../../user/rdo/user.rdo.js';
-import { City, Coords } from '../offer.entity.js';
+import { Coords } from '../offer.entity.js';
+import { TCity } from '../../../../types/city.type.js';
 
 export default class OfferRdo {
   @Exclude()
@@ -19,8 +19,7 @@ export default class OfferRdo {
   public description!: string;
 
   @Expose()
-  @Type(() => City)
-  public city!: City;
+  public city: TCity;
 
   @Expose()
   public preview!: string;

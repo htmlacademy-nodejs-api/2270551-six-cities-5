@@ -5,22 +5,17 @@ import { Request, Response } from 'express';
 import { Controller } from '../../rest/controller/controller.abstract.js';
 import { LoggerInterface } from '../../logger/logger.interface.js';
 import { AppComponent } from '../../../types/component.enum.js';
-//import { HttpMethod } from '../../rest/http-method.enum.js';
 import { fillDTO } from '../../../helpers/common.js';
 import OfferRdo from './rdo/offer.rdo.js';
 import CreateOfferDto from '../dto/create-offer.dto.js';
 import { UnknownRecord } from '../../../types/unknown-record.type.js';
-//import { ParamOfferId } from '../../../types/param-offerid.type.js';
-//import HttpError from '../../rest/errors/http-error.js';
-//import { StatusCodes } from 'http-status-codes';
 import UpdateOfferDto from '../dto/update-offer.dto.js';
 import { CommentServiceInterface } from '../comment/comment-service.interface.js';
 import CommentRdo from '../comment/rdo/comment.rdo.js';
-//import { ValidateObjectIdMiddleware } from '../../rest/middleware/validate-objectid.middleware.js';
-//import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middleware.js';
 import { CityName } from '../../../types/city.type.js';
 import { ValidateDtoMiddleware } from '../../rest/middleware/validate-dto.middleware.js';
-//import {DocumentExistsMiddleware} from '../../rest/middleware/document-exists.middleware.js';
+
+
 import {
   DocumentExistsMiddleware,
   HttpMethod, PrivateRouteMiddleware,

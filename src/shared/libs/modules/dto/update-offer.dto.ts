@@ -31,7 +31,7 @@ export default class UpdateOfferDto {
 
   @IsOptional()
   @IsIn(Object.keys(CITIES), { message: 'Wrong city name' })
-  public cityName?: CityName;
+  public city?: CityName;
 
   @IsOptional()
   @IsString({ message: 'preview should be string' })

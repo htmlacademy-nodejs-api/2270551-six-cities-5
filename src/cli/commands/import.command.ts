@@ -11,7 +11,7 @@ import { UserModel } from '../../shared/libs/modules/user/user.entity.js';
 import OfferService from '../../shared/libs/modules/offer/default-offer.service.js';
 import { OfferModel } from '../../shared/libs/modules/offer/offer.entity.js';
 import MongoClientService from '../../shared/libs/database-client/mongo.database-client.js';
-import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from '../../const.js';
+import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from './command.constant.js';
 import { Offer } from '../../shared/types/offer.type.js';
 
 export default class ImportCommand implements CliCommandInterface {
@@ -32,22 +32,23 @@ export default class ImportCommand implements CliCommandInterface {
     this.databaseService = new MongoClientService(this.logger);
   }
 
+  private async onLine(line: string, resolve: () => void) {
+    const offer = createOffer(line);
+    await this.saveOffer(offer);
+    resolve();
+  }
+
   private async saveOffer(offer: Offer) {
     const user = await this.userService.findOrCreate({
-      ...offer.author,
+      ...offer.user,
       password: DEFAULT_USER_PASSWORD
     }, this.salt);
 
     await this.offerService.create({
       ...offer,
       userId: user.id,
+      city: offer.city
     });
-  }
-
-  private async onLine(line: string, resolve: () => void) {
-    const offer = createOffer(line);
-    await this.saveOffer(offer);
-    resolve();
   }
 
   private onComplete(count: number) {
