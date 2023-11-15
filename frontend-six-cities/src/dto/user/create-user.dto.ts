@@ -1,5 +1,4 @@
-import { UserType } from '../../../../src/shared/types/user-type.enum.js';
-
+import {UserType} from '../../const';
 
 export default class CreateUserDto {
 

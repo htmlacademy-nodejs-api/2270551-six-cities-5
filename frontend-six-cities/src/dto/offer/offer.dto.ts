@@ -1,7 +1,4 @@
-import { CityName } from '../../../../src/shared/types/city.type.js';
-import { Feature } from '../../../../src/shared/types/feature.enum.js';
-import { HouseType } from '../../../../src/shared/types/house-type.enum.js';
-import { Coords } from '../../../../src/shared/libs/modules/offer/offer.entity.js';
+import { Coords,CityName,HouseType, Feature } from '../../types';
 
 
 export default class OfferDto {

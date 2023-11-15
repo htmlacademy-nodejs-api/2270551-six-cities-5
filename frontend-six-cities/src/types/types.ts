@@ -63,6 +63,28 @@ export type NewOffer = {
   images: string[];
 };
 
+export enum HouseType {
+  Apartment = 'apartment',
+  House = 'house',
+  Room = 'room',
+  Hotel = 'hotel',
+}
+
+export enum Feature {
+  breakfast = 'Breakfast',
+  conditioning = 'Air conditioning',
+  workspace = 'Laptop friendly workspace',
+  babySeat = 'Baby seat',
+  washer = 'Washer',
+  towels = 'Towels',
+  fridge = 'Fridge'
+ }
+
+export type Coords = {
+  latitude: number,
+  longitude: number
+};
+
 export type NewComment = Pick<Comment, 'comment' | 'rating'>;
 export type UserAuth = Pick<User, 'email'> & { password: string };
 export type CommentAuth = NewComment &
