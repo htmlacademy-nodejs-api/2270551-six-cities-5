@@ -49,6 +49,7 @@ export enum ApiRoute {
   Avatar = '/avatar',
   Comments = '/comments',
   Favorite = '/favorites',
+  UpdateFavorite = 'users/favorite',
   Premium = '/premium',
 }
 
@@ -77,8 +78,11 @@ export enum StoreSlice {
 }
 
 export enum HttpCode {
+  OK = 200,
   NotFound = 404,
   NoAuth = 401,
+  Created = 201,
+  BadRequest = 400
 }
 
 export enum SubmitStatus {
