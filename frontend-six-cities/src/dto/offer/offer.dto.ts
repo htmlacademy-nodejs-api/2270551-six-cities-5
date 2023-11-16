@@ -6,7 +6,7 @@ export default class OfferDto {
   public title!: string;
   public description!: string;
   public postDate!: Date;
-  public city?: City;
+  public city!: City;
   public preview!: string;
   public photos!: string[];
   public premium!: boolean;

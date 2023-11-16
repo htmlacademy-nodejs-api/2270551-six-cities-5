@@ -1,5 +1,5 @@
 import { CITIES, Sorting, TYPES, UserType } from '../const';
-import { PreviewOffer } from './PreviewOffer';
+//import { PreviewOffer } from './PreviewOffer';
 //import UserDto from '../dto/user/user.dto';
 
 export type CityName = typeof CITIES[number];
@@ -16,13 +16,30 @@ export type City = {
   location: Location;
 };
 
+export enum HouseType {
+  Apartment = 'apartment',
+  House = 'house',
+  Room = 'room',
+  Hotel = 'hotel',
+}
+
+export enum Feature {
+  Breakfast = 'Breakfast',
+  Conditioner = 'Air conditioning',
+  LaptopWorkspace = 'Laptop friendly workspace',
+  BabySeat = 'Baby seat',
+  Washer = 'Washer',
+  Towels = 'Towels',
+  Fridge = 'Fridge',
+}
+
+
 export type User = {
   name: string;
   avatarUrl: string;
   type: UserType;
   email: string;
-  token?: string;
-}
+};
 
 export type Comment = {
   id: string;
@@ -32,18 +49,39 @@ export type Comment = {
   user: User;
 };
 
-export type Offer = PreviewOffer & {
-  description: string;
-  bedrooms: number;
+export type Offer = {
+  id: string;
+  price: number;
+  rating: number;
+  title: string;
+  isPremium: boolean;
+  isFavorite: boolean;
   city: City;
+  location: Location;
+  previewImage: string;
+  type: Type;
+  bedrooms: number;
+  description: string;
   goods: string[];
   host: User;
   images: string[];
   maxAdults: number;
+};
+
+export type OfferPreview = {
+  id: string;
+  price: number;
+  rating: number;
+  title: string;
+  isPremium: boolean;
+  isFavorite: boolean;
+  city: City;
+  location: Location;
+  previewImage: string;
+  type: Type;
 }
 
 export type NewOffer = {
-  id?: string;
   title: string;
   description: string;
   city: City;
@@ -58,28 +96,10 @@ export type NewOffer = {
   images: string[];
 };
 
-export enum HouseType {
-  Apartment = 'apartment',
-  House = 'house',
-  Room = 'room',
-  Hotel = 'hotel',
-}
-
-export enum Feature {
-  breakfast = 'Breakfast',
-  conditioning = 'Air conditioning',
-  workspace = 'Laptop friendly workspace',
-  babySeat = 'Baby seat',
-  washer = 'Washer',
-  towels = 'Towels',
-  fridge = 'Fridge'
- }
-
 export type Coords = {
   latitude: number,
   longitude: number
 };
-
 
 export type NewComment = Pick<Comment, 'comment' | 'rating'>;
 export type UserAuth = Pick<User, 'email'> & { password: string };
