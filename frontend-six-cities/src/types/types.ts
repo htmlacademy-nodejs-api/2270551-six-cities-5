@@ -81,6 +81,23 @@ export type OfferPreview = {
   type: Type;
 }
 
+export type NewOrEditOffer = {
+  id?: string,
+  title: string;
+  description: string;
+  city: City;
+  previewImage: File | undefined;
+  isPremium: boolean;
+  type: Type;
+  bedrooms: number;
+  maxAdults: number;
+  price: number;
+  goods: string[];
+  location: Location;
+  images: File[];
+};
+
+
 export type NewOffer = {
   title: string;
   description: string;
