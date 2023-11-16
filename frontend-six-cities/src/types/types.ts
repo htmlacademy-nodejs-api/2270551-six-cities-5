@@ -1,4 +1,6 @@
 import { CITIES, Sorting, TYPES, UserType } from '../const';
+import { PreviewOffer } from './PreviewOffer';
+//import UserDto from '../dto/user/user.dto';
 
 export type CityName = typeof CITIES[number];
 export type Type = typeof TYPES[number];
@@ -19,7 +21,8 @@ export type User = {
   avatarUrl: string;
   type: UserType;
   email: string;
-};
+  token?: string;
+}
 
 export type Comment = {
   id: string;
@@ -29,26 +32,18 @@ export type Comment = {
   user: User;
 };
 
-export type Offer = {
-  id: string;
-  price: number;
-  rating: number;
-  title: string;
-  isPremium: boolean;
-  isFavorite: boolean;
-  city: City;
-  location: Location;
-  previewImage: string;
-  type: Type;
-  bedrooms: number;
+export type Offer = PreviewOffer & {
   description: string;
+  bedrooms: number;
+  city: City;
   goods: string[];
   host: User;
   images: string[];
   maxAdults: number;
-};
+}
 
 export type NewOffer = {
+  id?: string;
   title: string;
   description: string;
   city: City;
@@ -84,6 +79,7 @@ export type Coords = {
   latitude: number,
   longitude: number
 };
+
 
 export type NewComment = Pick<Comment, 'comment' | 'rating'>;
 export type UserAuth = Pick<User, 'email'> & { password: string };

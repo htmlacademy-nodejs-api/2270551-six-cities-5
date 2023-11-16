@@ -11,12 +11,11 @@ export default class CreateOfferDto {
   public premium!: boolean;
   public favorite!: boolean;
   public rating!: number;
-  public houseType!: HouseType;
+  public type!: HouseType;
   public roomNumber!: number;
   public guests!: number;
   public price!: number;
   public features!: Feature[];
-  public userId!: string;
   public coords!: Coords;
 
 }

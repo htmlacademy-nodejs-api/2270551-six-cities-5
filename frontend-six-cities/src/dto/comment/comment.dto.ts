@@ -1,4 +1,4 @@
-import {UserDto} from '../user';
+import UserDto from '../user/user.dto';
 
 export class CommentDto {
   public userId!: string;

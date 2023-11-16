@@ -11,13 +11,12 @@ export default class UpdateOfferDto {
   public photos?: string[];
   public premium?: boolean;
   public favorite?: boolean;
-  public rating?: number;
-  public image?: string;
-  public houseType?: HouseType;
+  public type?: HouseType;
   public roomNumber?: number;
   public guests?: number;
   public price?: number;
   public features?: Feature[];
-  public id?: string;
   public coords?: Coords;
+  public rating?: number;
+  public image?: string;
 }
