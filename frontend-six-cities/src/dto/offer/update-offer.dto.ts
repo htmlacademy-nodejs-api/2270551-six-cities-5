@@ -11,7 +11,7 @@ export default class UpdateOfferDto {
   public photos?: string[];
   public premium?: boolean;
   public favorite?: boolean;
-  public type?: HouseType;
+  public houseType?: HouseType;
   public roomNumber?: number;
   public guests?: number;
   public price?: number;
